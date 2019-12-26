@@ -19,9 +19,7 @@ If you are on Windows, you can download it from [here.](https://git-scm.com/down
 *status* - Check the status of files, staging area, changes since last commit etc.
     $ git status
 ----
-*add* - Adds file/s to the staging area, so that they can be commited.
-   
-<<<<<<< HEAD
+*add* - Adds file/s to the staging area, so that they can be commited. 
     $ git add file1.txt file2.txt
     $ git add *.txt
     $ git add .    # adds all files in current directory
@@ -36,18 +34,7 @@ If you are on Windows, you can download it from [here.](https://git-scm.com/down
 ----
 *push* - Use if you have added and committed changes in your local repository that you want to push on to the remote repository (this one)
     $ git push <remote url> <branch>
-
 ----
-=======
-    git add file1.txt file2.txt
-    git add *.txt
-    git add .    # adds all files in current directory
 
-*commit* - This is actually going to save the *snapshot*. You need to add a commit message. Be as detailed as you can.
-
-    git commit    # Will open up your default text editor so you can write a commit message
-    git commit -m "This is a commit message"    # Add the -m argument to add the commit message in the command, so you don't have to open a text editor.
-
->>>>>>> bfcbb98af0e8667f8dc1a3806bfd2b458dc93a1f
 ## Will be updated
 
