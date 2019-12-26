@@ -46,6 +46,11 @@ If you are on Windows, you can download it from [here.](https://git-scm.com/down
     $ git push <remote url> <branch>
 
 ----
+*checkout* - Switch to different branches
 
+    $ git checkout <branch name>
+    $ git checkout -b <branch name>    # The -b flag will create a new branch and then switch to it
+
+----
 ## Will be updated
 
