@@ -14,14 +14,17 @@ If you are on Windows, you can download it from [here.](https://git-scm.com/down
 
 ## Basic Git Command Reference
 *clone* - copy repository from remote to local, will also set the remote to the original source (this one) so you can pull from it
+
     $ git clone <git url>
 
 ----
 *status* - Check the status of files, staging area, changes since last commit etc.
+
     $ git status
 
 ----
 *add* - Adds file/s to the staging area, so that they can be commited. 
+
     $ git add file1.txt file2.txt
     $ git add *.txt
     $ git add .    # adds all files in current directory
@@ -34,10 +37,12 @@ If you are on Windows, you can download it from [here.](https://git-scm.com/down
 
 ----
 *pull* - Use pull if the remote (this one) has changed and you want those changes on your local repository
+
     $ git pull <remote url> <branch>
 
 ----
 *push* - Use if you have added and committed changes in your local repository that you want to push on to the remote repository (this one)
+
     $ git push <remote url> <branch>
 
 ----
