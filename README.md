@@ -4,6 +4,15 @@ This is the central repository for our Hack Camp project.
 
 If you're using IntelliJ, it has a built in SVN manager that integrates with GitHub quite well. You can also use Git on it's own, you will just need to push your local repository to the remote one (this one).
 
+## Resources
+There are plenty of tutorials online so please learn how to use Git and GitHub properly so you don't fuck anything up (I'm looking at you Ifty...)
+
+https://learngitbranching.js.org/
+
+https://guides.github.com/introduction/git-handbook/
+
+https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
+
 If you're using Ubuntu or any Linux OS based on Debian, Git may already be installed, if not, use:
 
     $ sudo apt update
