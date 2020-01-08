@@ -28,3 +28,11 @@ body{
     height: 200px;
     background-color: white;
 }
+
+#currentDate {
+    text-align: center;
+}
+
+.card-title {
+    text-align: center;
+}
