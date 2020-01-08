@@ -3,6 +3,8 @@
 
 class User
 {
+    private $username, $DevTeam;
+
     /*
      * Sets value for a single user from a single database row given
      */
@@ -13,7 +15,7 @@ class User
     }
 
     /*
-     * 2 getters
+     * 2 accessor methods, to retrieve fields
      */
     public function getUsername()
     {
