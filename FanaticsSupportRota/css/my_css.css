@@ -1,0 +1,30 @@
+body{
+    background-color: #0b1f40;
+    font-family: sans-serif;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+
+.header {
+    color: white;
+    font-size: 48px;
+    text-align: center;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: black;
+}
+
+.rota {
+    width: 100%;
+    height: 200px;
+    background-color: white;
+}
