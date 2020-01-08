@@ -18,9 +18,9 @@ class Database {
      * @return Database
      */
     public static function getInstance() {
-        $username ='fanatics';
-        $password = 'fanatics1';
-        $host = 'olympus.tplinkdns.com';
+        $username ='sgb455';
+        $password = 'computingbois';
+        $host = 'sgb455.poseidon.salford.ac.uk';
         $dbName = 'fanatics_support_rota';
 
         if(self::$_dbInstance === null) { //checks if the PDO exists
