@@ -1,6 +1,7 @@
 body{
     background-color: #0b1f40;
     font-family: sans-serif;
+    margin-bottom: 50px;
 }
 
 .footer {
@@ -11,6 +12,7 @@ body{
     background-color: white;
     color: black;
     text-align: center;
+    margin-top: 5px;
 }
 
 .header {
@@ -37,7 +39,8 @@ body{
     padding: 10px;
     margin: 0px;
     border-top: solid 1px black;
-    background-color: #e53c2e;
+    background-color: darkgray;
+    height: 50px;
 }
 
 .card-header{
@@ -47,4 +50,8 @@ body{
 
 .card-body{
     padding: 0;
+}
+
+.empty{
+    background-color: white;
 }
