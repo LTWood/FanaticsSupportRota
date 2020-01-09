@@ -55,3 +55,10 @@ body{
 .empty{
     background-color: white;
 }
+#currentDate {
+    text-align: center;
+}
+
+.card-title {
+    text-align: center;
+}
