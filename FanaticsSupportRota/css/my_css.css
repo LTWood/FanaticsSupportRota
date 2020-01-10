@@ -62,3 +62,27 @@ body{
 .card-title {
     text-align: center;
 }
+
+.modal {
+    padding-top: 10%; /* Location of the box */
+    left: 0;
+    top: 0;
+}
+
+.modal-body {
+    background-color: #0b1f40;
+}
+
+.textBox {
+    margin-bottom: 10px;
+}
+
+.signInBtn {
+    width: 100%;
+    background-color: #0b1f40;
+    border-color: #0b1f40;
+}
+
+.signInBtn:hover {
+    background-color: #204073;
+}
