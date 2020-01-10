@@ -1,0 +1,22 @@
+<?php require_once('template/header.phtml'); ?>
+
+<div class="container">
+    <h2>Create Account </h2> <!--title-->
+    <form method="post" class="card cardPost">
+        <div class="card-body"> <!-- Subject entered here -->
+            <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+        </div>
+
+        <div class="card-body"> <!-- Content entered here -->
+            <input class="form-control" name="team" placeholder="Team">
+        </div>
+
+        <div class="card-footer"> <!-- Submit button -->
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    <?php if(isset($view->message)) : ?>
+        <div class="alert alert-dark" role="alert"><?= $view->message ?></div>
+    <?php endif; ?>
+
+<?php require_once('template/footer.phtml'); ?>
