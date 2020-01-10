@@ -17,51 +17,53 @@
     <!-- FontAwesome -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <title></title>
+    </head>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <a class="navbar-brand" href="../../index.php"><img src="images/FanaticsLogo.png" width="100px" height="50px"></a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="../../index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../../maintenance.php">Maintenance</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
-        </div>
-        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#exampleModal">Login</button>
-    </nav>
+    <body class="document">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <a class="navbar-brand" href="../../index.php"><img src="images/FanaticsLogo.png" width="100px" height="50px"></a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../maintenance.php">Maintenance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+            </div>
+            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#exampleModal">Login</button>
+        </nav>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <img src="images/FanaticsLogo.png" width="100px" height="50px">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div class="form-label-group textBox">
-                            <input type="text" name="email" class="form-control" placeholder="Username" required autofocus>
-                        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="images/FanaticsLogo.png" width="100px" height="50px">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post">
+                            <div class="form-label-group textBox">
+                                <input type="text" name="email" class="form-control" placeholder="Username" required autofocus>
+                            </div>
 
-                        <div class="form-label-group textBox">
-                            <input type="password" name="psw" class="form-control" placeholder="Password" required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary signInBtn">Sign In</button>
+                            <div class="form-label-group textBox">
+                                <input type="password" name="psw" class="form-control" placeholder="Password" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary signInBtn">Sign In</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</head>
+
 
