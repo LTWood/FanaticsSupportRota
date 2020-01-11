@@ -1,5 +1,7 @@
 <?php
 
+require_once  ('Models/Database.php');
+require_once ('Models/User.php');
 
 class UserDataSet
 {
@@ -39,8 +41,8 @@ class UserDataSet
     {
         $sqlQuery = "SELECT password FROM users WHERE username = ?";
         $statement = $this->_dbHandle->prepare($sqlQuery);
-        return (password_verify($password, $statement->execute([$username])["password"])); //Array in execute binds params for security
-
+        $statement->execute([$username]);
+        return (password_verify($password, $statement->fetch()["password"])); //Array in execute binds params for security
     }
 
     /*
@@ -54,12 +56,12 @@ class UserDataSet
     public function createUser($username, $team)
     {
         $password = $this->generatePassword();
-        if ($this->checkUsername())
+        if ($this->checkUsername($username))
         {
             $sqlQuery = "INSERT INTO users VALUES (?,?,?)";
             $statement = $this->_dbHandle->prepare($sqlQuery);
-            $statement->execute([$username, $password, $team]);
-            return "User added";
+            $statement->execute([$username, password_hash($password, PASSWORD_DEFAULT), $team]);
+            return "User added; Password is: " .$password;
         }
         else
             {
@@ -90,7 +92,7 @@ class UserDataSet
         $sqlQuery = "SELECT username FROM users WHERE username = ?";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$username]);
-        return ($statement->fetch()["username"] != "");
+        return ($statement->fetch()["username"] == "");
     }
 
     /*
