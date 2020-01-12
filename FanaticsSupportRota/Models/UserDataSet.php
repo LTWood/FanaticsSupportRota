@@ -14,7 +14,6 @@ class UserDataSet
     {
         $this->_dbInstance = Database::getInstance();
         $this->_dbHandle = $this->_dbInstance->getdbConnection();
-        $this->generatePassword();
     }
 
     /*
@@ -58,7 +57,7 @@ class UserDataSet
         $password = $this->generatePassword();
         if ($this->checkUsername($username))
         {
-            $sqlQuery = "INSERT INTO users VALUES (?,?,?)";
+            $sqlQuery = "INSERT INTO users (username, password, development_team) VALUES (?,?,?)";
             $statement = $this->_dbHandle->prepare($sqlQuery);
             $statement->execute([$username, password_hash($password, PASSWORD_DEFAULT), $team]);
             return "User added; Password is: " .$password;
