@@ -1,9 +1,9 @@
 <?php
 
-include_once ('Models/Database.php');
-include_once ('Models/UserDataSet.php');
-include_once ('Models/SupportTeamDataSet.php');
-include_once ('Models/SupportTeam.php');
+require_once ('Models/Database.php');
+require_once ('Models/UserDataSet.php');
+require_once ('Models/SupportTeamDataSet.php');
+require_once ('Models/SupportTeam.php');
 
 class GenerateRota
 {
