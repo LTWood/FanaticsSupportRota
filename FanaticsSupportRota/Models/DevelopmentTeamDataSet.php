@@ -1,8 +1,8 @@
 <?php
 
 //Incorporating the 'Database' and 'DevelopmentTeam' classes
-include_once ('Models/Database.php');
-include_once ('Models/DevelopmentTeam.php');
+require_once ('Models/Database.php');
+require_once ('Models/DevelopmentTeam.php');
 /*
  * Class that maintains the interaction between the database and the client for the development team data
  */

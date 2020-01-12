@@ -1,8 +1,8 @@
 <?php
 
 //Incorporating the 'Database' and 'SupportTeam' classes
-include_once ('Models/Database.php');
-include_once ('Models/SupportTeam.php');
+require_once ('Models/Database.php');
+require_once ('Models/SupportTeam.php');
 
 /*
  * Class that maintains the interaction between the database and the client for the development team data
@@ -18,6 +18,24 @@ class SupportTeamDataSet
     {
         $this->_dbInstance = Database::getInstance();
         $this->_dbHandle = $this->_dbInstance->getdbConnection();
+    }
+
+
+    public function getSupportTeams($weeks){
+        $firstday = date('Y-m-d', strtotime("monday -1 week"));
+        $lastday = date('Y-m-d', strtotime("sunday ".--$weeks." week"));
+        $sqlQuery = 'SELECT * FROM support_team WHERE date_start >= "'.$firstday.'" AND date_end <= "'.$lastday.'"';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute();
+        $dataSet = [];
+        while($row = $statement->fetch()){
+            $a = explode('-',$row['date_start']);
+            $row['date_start'] = "{$a[2]}-{$a[1]}-{$a[0]}";
+            $a = explode('-',$row['date_end']);
+            $row['date_end'] = "{$a[2]}-{$a[1]}-{$a[0]}";
+            $dataSet[] = new SupportTeam($row);
+        }
+        return $dataSet;
     }
 
     //Creates a new support team from user input
