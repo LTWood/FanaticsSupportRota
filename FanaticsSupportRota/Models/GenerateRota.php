@@ -52,6 +52,22 @@ class GenerateRota
             array_push($devPairs, $dev2);
         }
 
+        $consecutiveDevs = [];
+        for($i=0;$i<count($devPairs);$i++){
+            $consecutiveDevs[$devPairs[$i]] = 0;
+        }
+
+        //Check for consecutive support teams
+//        $dev1 = $devPairs[0];
+//        $dev2 = $devPairs[1];
+//        for($i=2;$i<$weeks;$i++){
+//            if(($dev1 == $devPairs[$i]) || $dev1 == $devPairs[$i+1]){
+//                $consecutiveDevs[$dev1]++;
+//            }elseif(($dev2 == $devPairs[$i]) || $dev2 == $devPairs[$i+1]){
+//
+//            }
+//        }
+
         //Creates a support team using the dev pair and the dates
         $datesIndex = 0;
         for($i=0;$i<($weeks/2);$i++){

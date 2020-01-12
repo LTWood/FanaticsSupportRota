@@ -23,7 +23,7 @@ class UserDataSet
      */
     public function getAllUsers()
     {
-        $sqlQuery = "SELECT username, development_team, support_count FROM users";
+        $sqlQuery = "SELECT username, development_team, support_count FROM users WHERE type = 'developer'";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
         $dataSet = [];
@@ -61,7 +61,7 @@ class UserDataSet
         $password = $this->generatePassword();
         if ($this->checkUsername($username))
         {
-            $sqlQuery = "INSERT INTO users VALUES (?,?,?)";
+            $sqlQuery = "INSERT INTO users (username, password, development_team) VALUES (?,?,?)";
             $statement = $this->_dbHandle->prepare($sqlQuery);
             $statement->execute([$username, password_hash($password, PASSWORD_DEFAULT), $team]);
             return "User added; Password is: " .$password;
