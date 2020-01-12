@@ -23,7 +23,7 @@ class UserDataSet
      */
     public function getAllUsers()
     {
-        $sqlQuery = "SELECT username, development_team FROM users";
+        $sqlQuery = "SELECT username, development_team, support_count FROM users";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
         $dataSet = [];

@@ -20,27 +20,23 @@ class SupportTeamDataSet
         $this->_dbHandle = $this->_dbInstance->getdbConnection();
     }
 
-
+    //Calculate date range for x amount of weeks and fetch all support teams within that range
     public function getSupportTeams($weeks){
-        $firstday = date('Y-m-d', strtotime("monday -1 week"));
-        $lastday = date('Y-m-d', strtotime("sunday ".--$weeks." week"));
-        $sqlQuery = 'SELECT * FROM support_team WHERE date_start >= "'.$firstday.'" AND date_end <= "'.$lastday.'"';
+        $firstDay = date('Y-m-d', strtotime("monday -1 week"));
+        $lastDay = date('Y-m-d', strtotime("sunday ".--$weeks." week"));
+        $sqlQuery = 'SELECT * FROM support_team WHERE date_start >= "'.$firstDay.'" AND date_end <= "'.$lastDay.'" ORDER BY date_start';
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
         $dataSet = [];
         while($row = $statement->fetch()){
-            $a = explode('-',$row['date_start']);
-            $row['date_start'] = "{$a[2]}-{$a[1]}-{$a[0]}";
-            $a = explode('-',$row['date_end']);
-            $row['date_end'] = "{$a[2]}-{$a[1]}-{$a[0]}";
-            $dataSet[] = new SupportTeam($row);
+            $dataSet[] = new SupportTeam($row); //Store DB row in a SupportTeam object that is then stored in an array of support teams
         }
-        return $dataSet;
+        return $dataSet; //return array of support teams
     }
 
     //Creates a new support team from user input
     public function addSupportTeam($date_start, $date_end, $developer_1, $developer_2){
-        $sqlQuery = 'INSERT INTO support_team (date_start, date_end, developer_1, developer_2) VALUES ("?","?","?","?")';
+        $sqlQuery = 'INSERT INTO support_team (date_start, date_end, developer_1, developer_2) VALUES (?,?,?,?)';
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$date_start, $date_end, $developer_1, $developer_2]);
     }
@@ -50,6 +46,13 @@ class SupportTeamDataSet
         $sqlQuery = 'DELETE FROM support_team WHERE id = ?';
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$id]);
+    }
+
+    //Removes all support teams that are in the passed date range
+    public function removeSupportTeamDateRange($date_start, $date_end){
+        $sqlQuery = 'DELETE FROM support_team WHERE date_start >= "'.$date_start.'" AND date_end <= "'.$date_end.'"';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute();
     }
 
     //Adds a developer to a specific team if there is a position available

@@ -5,13 +5,20 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="my-3 p-3 bg-white rounded box-shadow">
-
+                <?php if(isset($_SESSION['user'])){ ?>
+                <form method="post" action="../index.php">
+                    <input type="submit" class="btn btn-warning" name="generateRota" value="Generate New Rota"/>
+                </form>
+                <?php } ?>
                 <h2 id="currentDate">Current date: <?= date("d/m/Y") ?></h2>
 
                 <?php foreach ($view->supportRota as $supportTeam) : ?>
                     <div class="card my-3">
                         <div class="card-body">
-                            <h5 class="card-title"><?=$supportTeam->getDateStart()?> --- <?=$supportTeam->getDateEnd()?></h5>
+                            <h5 class="card-title">
+                                <?= date('d-m-Y',strtotime($supportTeam->getDateStart())); ?> ---
+                                <?= date('d-m-Y',strtotime($supportTeam->getDateEnd())); ?>
+                            </h5>
                             <div class="users text-center">
                                 <span class="btn btn-primary"><?=$supportTeam->getDeveloper1()?></span>
                                 <span class="btn btn-primary"><?=$supportTeam->getDeveloper2()?></span>
