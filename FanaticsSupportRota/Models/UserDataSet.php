@@ -14,7 +14,6 @@ class UserDataSet
     {
         $this->_dbInstance = Database::getInstance();
         $this->_dbHandle = $this->_dbInstance->getdbConnection();
-        $this->generatePassword();
     }
 
     /*
@@ -24,10 +23,14 @@ class UserDataSet
      */
     public function getAllUsers()
     {
-        $sqlQuery = "SELECT username, development_team FROM users";
+        $sqlQuery = "SELECT username, development_team, support_count FROM users";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
-        return $statement->fetch();
+        $dataSet = [];
+        while($row = $statement->fetch()){
+            $dataSet[] = new User($row);
+        }
+        return $dataSet;
     }
 
     /*

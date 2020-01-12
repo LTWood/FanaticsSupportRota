@@ -5,38 +5,27 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="my-3 p-3 bg-white rounded box-shadow">
-
+                <?php if(isset($_SESSION['user'])){ ?>
+                <form method="post" action="../index.php">
+                    <input type="submit" class="btn btn-warning" name="generateRota" value="Generate New Rota"/>
+                </form>
+                <?php } ?>
                 <h2 id="currentDate">Current date: <?= date("d/m/Y") ?></h2>
 
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h5 class="card-title">14/02/20 --- 28/02/20</h5>
-                        <div class="users text-center">
-                            <span class="btn btn-primary">Luke Wood</span>
-                            <span class="btn btn-primary">Omar Farrah</span>
+                <?php foreach ($view->supportRota as $supportTeam) : ?>
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <?= date('d-m-Y',strtotime($supportTeam->getDateStart())); ?> ---
+                                <?= date('d-m-Y',strtotime($supportTeam->getDateEnd())); ?>
+                            </h5>
+                            <div class="users text-center">
+                                <span class="btn btn-primary"><?=$supportTeam->getDeveloper1()?></span>
+                                <span class="btn btn-primary"><?=$supportTeam->getDeveloper2()?></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h5 class="card-title">29/02/20 --- 14/03/20</h5>
-                        <div class="users text-center">
-                            <span class="btn btn-primary">Aaron Gagan</span>
-                            <span class="btn btn-primary">Josh Watson<span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h5 class="card-title">15/03/20 --- 30/03/20</h5>
-                        <div class="users text-center">
-                            <span class="btn btn-primary">Jimmy Jimson</span>
-                            <span class="btn btn-primary">Billy Bilson<span>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
