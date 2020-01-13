@@ -109,17 +109,14 @@ class SupportTeamDataSet
         return $dataSet;
     }
 
-    /*
-     * findUserRota selects all the rotas from a single user using the username they are logged in with
-     */
-    public function findUserRota($username)
+    // Update a developer in support team
+    public function updateSlot($developer1, $developer2, $startDate)
     {
-        $sqlQuery = "SELECT * FROM support_team WHERE developer_1 = ? OR developer_2 = ?";
+        $sqlQuery = "UPDATE support_team SET developer_1 = ? WHERE date_start = ?";
         $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute([$username, $username]);
-        while ($row = $statement->fetch()) {
-            $dataSet[] = new SupportTeam($row);
-        }
-        return $dataSet;
+        $statement->execute([$developer1, $startDate]);
+        $sqlQuery = "UPDATE support_team SET developer_2 = ? WHERE date_start = ?";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$developer2, $startDate]);
     }
 }
