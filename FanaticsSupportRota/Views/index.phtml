@@ -6,11 +6,9 @@
         <div class="col-xl-12">
             <div class="my-3 p-3 bg-white rounded box-shadow">
                 <?php if(isset($_SESSION['user'])){ ?>
-                <form method="post" action="../index.php">
-                    <input type="submit" class="btn btn-warning" name="generateRota" value="Generate New Rota"/>
-                </form>
                 <?php } ?>
                 <h2 id="currentDate">Current date: <?= date("d/m/Y") ?></h2>
+                <h6 id="noWeeks">Currently showing support teams for the next <?= $view->noWeeks ?> weeks..</h6>
 
                 <?php foreach ($view->supportRota as $supportTeam) : ?>
                     <div class="card my-3">
@@ -26,6 +24,22 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
+                <div class="form-row">
+                    <form class="col-xl-6" method="post" action="../index.php">
+                        <p>Generate rota for the next
+                            <input type="text" id="noWeeksInput" name="noWeeksGen" required/>
+                            weeks
+                            <input type="submit" class="btn btn-success" name="generateRota" value="Generate"/>
+                        </p>
+                    </form>
+                    <form class="col-xl-6" method="post" action="../index.php">
+                        <p class="b">View the next
+                            <input type="text" id="noWeeksInput" name="noWeeksView" required/>
+                            weeks
+                            <input type="submit" class="btn btn-success" name="viewNoWeeks" value="View"/>
+                        </p>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
