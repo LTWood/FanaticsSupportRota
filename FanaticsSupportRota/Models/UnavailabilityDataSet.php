@@ -36,6 +36,15 @@ class UnavailabilityDataSet{
         $statement->execute([$id]);
     }
 
+    public function checkAvailability($username, $date_start, $date_end){
+        $sqlQuery = 'SELECT id FROM unavailability WHERE username = '.$username.' AND ('.$date_start.' >= date_start OR '.$date_end.' <= date_end)';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute();
+        $row = $statement->fetch();
+        var_dump($row);
+    }
+
+
 //    public function getUnavailability($date_start, $date_end)
 //    {
 //        $sqlQuery = 'SELECT * FROM unavailability WHERE date_start = ? AND  date_end = ?';

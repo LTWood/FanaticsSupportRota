@@ -8,6 +8,7 @@ $view->pageTitle = 'Support Rota';
 require_once ('Models/UserDataSet.php');
 require_once ('Models/SupportTeamDataSet.php');
 require_once ('Models/GenerateRota.php');
+require_once ('Models/UnavailabilityDataSet.php.php');
 
 $supportTeamObject = new SupportTeamDataSet();
 
@@ -19,6 +20,9 @@ if(isset($_POST['generateRota'])){
 }
 
 $view->supportRota = $supportTeamObject->getSupportTeams(16);
+
+$unavailabilityObject = new UnavailabilityDataSet();
+$unavailabilityObject->checkAvailability("Omar.Farrah", "2020-01-06", "2020-01-19");
 
 
 

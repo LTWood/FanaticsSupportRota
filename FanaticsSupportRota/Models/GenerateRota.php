@@ -42,13 +42,19 @@ class GenerateRota
         //Generates random pairs of devs
         $devPairs = [];
         for ($i = 0; $i < $weeks; $i += 2) {
-            $v1 = mt_rand(0, count($users) - 1);
-            $v2 = mt_rand(0, count($users) - 1);
-            while ($v2 == $v1) { //If the same two people match then select another dev
+            $valid = false;
+            while($valid == false){
+                $valid = true;
+                $v1 = mt_rand(0, count($users) - 1);
                 $v2 = mt_rand(0, count($users) - 1);
+                while ($v2 == $v1) { //If the same two people match then select another dev
+                    $v2 = mt_rand(0, count($users) - 1);
+                }
+                $dev1 = $users[$v1]->getUsername();
+                $dev2 = $users[$v2]->getUsername();
+                if()
             }
-            $dev1 = $users[$v1]->getUsername();
-            $dev2 = $users[$v2]->getUsername();
+
             array_push($devPairs, $dev1);
             array_push($devPairs, $dev2);
         }
