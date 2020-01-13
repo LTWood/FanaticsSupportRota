@@ -97,6 +97,7 @@ class SupportTeamDataSet
         $sqlQuery = "SELECT * FROM support_team WHERE developer_1 = ? OR developer_2 = ?";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$username,$username]);
+        $dataSet = [];
         while ($row = $statement->fetch()) {
             $dataSet[] = new SupportTeam($row);
         }

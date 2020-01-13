@@ -9,7 +9,8 @@ require_once ('Models/Unavailability.php');
  * class that adds staff to unavailability
  */
 
-class UnavailabilityDataSet{
+class UnavailabilityDataSet
+{
 
     //establish DB connection
     protected $_dbHandle, $_dbInstance;
