@@ -7,11 +7,11 @@
             <div class="col-xl-6">
                 <?php $index = 0 ?>
                 <?php foreach ($view->supportTeams as $team): ?>
-                    <div class="card my-3">
-                        <div class="card-header">
-                            <h5><?= date("d/m/y", strtotime($team->getDateStart())) ?>
+                    <div class="card my-3" id="supportTeam">
+                        <div class="card-header" id="dates">
+                            <h5><span id="startDate"><?= date("d/m/y", strtotime($team->getDateStart())) ?></span>
                                 ---
-                                <?= date("d/m/y", strtotime($team->getDateEnd())) ?>
+                                <span id="endDate"><?= date("d/m/y", strtotime($team->getDateEnd())) ?></span>
                             </h5>
                         </div>
                         <div class="card-body">
@@ -51,8 +51,7 @@
                                 <p class="card-text" id="devCardText<?= $index ?>">
                                     <span id="devCardName"><?= $user->getUsername() ?></span>
                                     <button class="trashButton" id="trash<?= $index ?>"
-                                            onclick="removeDeveloperFromSupport(<?= $index ?>)"><i
-                                                class="fas fa-trash-alt"></i>trash
+                                            onclick="removeDeveloperFromSupport(<?= $index ?>)"><i class="fas fa-trash-alt"></i>
                                     </button>
                                 </p>
                             </div>

@@ -86,3 +86,11 @@ body{
 .signInBtn:hover {
     background-color: #204073;
 }
+
+.trashButton {
+    display: none;
+}
+
+.trashButtonOriginalDev {
+    display: inline;
+}
