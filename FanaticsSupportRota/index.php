@@ -15,10 +15,10 @@ $supportTeamObject = new SupportTeamDataSet();
 //Generates a new rota for x amount of weeks (starting the beginning of the current week)
 if(isset($_POST['generateRota'])){
     $rotaObject = new GenerateRota();
-    $rotaObject->generateRota(8);
+    $rotaObject->generateRota(16);
 }
 
-$view->supportRota = $supportTeamObject->getSupportTeams(8);
+$view->supportRota = $supportTeamObject->getSupportTeams(16);
 
 
 
