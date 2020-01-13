@@ -93,6 +93,14 @@ h4 {
     background-color: #204073;
 }
 
+.trashButton {
+    display: none;
+}
+
+.trashButtonOriginalDev {
+    display: inline;
+}
+
 #logOutBtn {
     margin-left: 5px;
 }

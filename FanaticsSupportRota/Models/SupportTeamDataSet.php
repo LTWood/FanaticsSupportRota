@@ -89,6 +89,16 @@ class SupportTeamDataSet
         }
     }
 
+    // Update a developer in support team
+    public function updateSlot($developer1, $developer2, $startDate)
+    {
+        $sqlQuery = "UPDATE support_team SET developer_1 = ? WHERE date_start = ?";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$developer1, $startDate]);
+        $sqlQuery = "UPDATE support_team SET developer_2 = ? WHERE date_start = ?";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$developer2, $startDate]);
+      
     /*
      * findUserRota selects all the rotas from a single user using the username they are logged in with
      */
