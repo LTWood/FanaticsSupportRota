@@ -55,9 +55,11 @@ class GenerateRota
                 $dev2 = $users[$v2]->getUsername();
                 if(!$unavailabilityObject->checkAvailability($dev1, $dates[$i], $dates[$i+1])){
                     $valid = false;
+                    echo "Conflict!";
                 }
                 if(!$unavailabilityObject->checkAvailability($dev2, $dates[$i], $dates[$i+1])){
                     $valid = false;
+                    echo "Conflict!";
                 }
             }
             array_push($devPairs, $dev1);
