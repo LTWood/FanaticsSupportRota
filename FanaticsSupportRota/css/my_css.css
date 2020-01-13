@@ -54,11 +54,13 @@ h4 {
 
 .card-body{
     padding: 0;
+    margin-bottom: 5px;
 }
 
 .empty{
     background-color: white;
 }
+
 #currentDate {
     text-align: center;
 }
