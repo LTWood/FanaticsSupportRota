@@ -47,6 +47,14 @@ class UserDataSet
         $statement->execute([$username]);
         return (password_verify($password, $statement->fetch()["password"])); //Array in execute binds params for security
     }
+    //Could be put in login function, keep it outside for now to keep from having issues during merges
+    public function getUserType($username)
+    {
+        $sqlQuery = "SELECT type FROM users WHERE username = ?";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$username]);
+        return ($statement->fetch()["type"]);
+    }
 
     /*
      * createUser is the function that adds a new user to the users database. It takes the
