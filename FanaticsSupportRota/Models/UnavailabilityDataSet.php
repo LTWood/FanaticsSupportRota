@@ -36,14 +36,21 @@ class UnavailabilityDataSet{
         $statement->execute([$id]);
     }
 
-//    public function getUnavailability($date_start, $date_end)
-//    {
-//        $sqlQuery = 'SELECT * FROM unavailability WHERE date_start = ? AND  date_end = ?';
-//        $statement = $this->_dbHandle->prepare($sqlQuery);
-//        $statement->execute([$date_start, $date_end]);
-//    }
-
-
-
-
+    public function checkAvailability($username, $date_start, $date_end){
+        $sqlQuery = 'SELECT * FROM unavailability WHERE username = ? AND (NOT(? > date_end) && NOT(? < date_start))';
+        //$sqlQuery ="SELECT * FROM unavailability WHERE username = ? AND (date_start <= ? OR date_end >= ?)";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$username, $date_start, $date_end]);
+        $dataSet = [];
+//        $row = $statement->fetch();
+//        var_dump($row);
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new Unavailability($row);
+        }
+        if(count($dataSet)!= 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
