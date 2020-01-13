@@ -3,7 +3,7 @@
 require_once ('Models/Database.php');
 require_once ('Models/UserDataSet.php');
 require_once ('Models/SupportTeamDataSet.php');
-require_once ('Models/SupportTeam.php');
+require_once ('Models/UnavailabilityDataSet.php');
 
 class GenerateRota
 {
@@ -20,6 +20,7 @@ class GenerateRota
     public function generateRota($weeks)
     {
         $supportTeamObject = new SupportTeamDataSet();
+        $unavailabilityObject = new UnavailabilityDataSet();
         $usersObject = new UserDataSet();
         if (($weeks % 2) != 0) {
             $weeks++;
@@ -52,9 +53,13 @@ class GenerateRota
                 }
                 $dev1 = $users[$v1]->getUsername();
                 $dev2 = $users[$v2]->getUsername();
-//                if()
+                if(!$unavailabilityObject->checkAvailability($dev1, $dates[$i], $dates[$i+1])){
+                    $valid = false;
+                }
+                if(!$unavailabilityObject->checkAvailability($dev2, $dates[$i], $dates[$i+1])){
+                    $valid = false;
+                }
             }
-
             array_push($devPairs, $dev1);
             array_push($devPairs, $dev2);
         }

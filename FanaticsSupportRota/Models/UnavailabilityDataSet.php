@@ -44,12 +44,13 @@ class UnavailabilityDataSet{
         $dataSet = [];
 //        $row = $statement->fetch();
 //        var_dump($row);
-
         while ($row = $statement->fetch()) {
             $dataSet[] = new Unavailability($row);
         }
-
-        var_dump($dataSet);
-//        return $dataSet;
+        if(count($dataSet)!= 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
