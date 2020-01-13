@@ -43,9 +43,9 @@
                 </li>
             </ul>
         </div>
-        <span> Logged In: <?php echo $_SESSION['user']?></span>
+        <span> <b>Logged In: </b><?php echo $_SESSION['user']?></span>
         <form method="post" action = "index.php">
-            <button class="btn btn-warning" type="submit" name="logout" >Log Out</button>
+            <button class="btn btn-warning" id="logOutBtn" type="submit" name="logout" >Log Out</button>
         </form>
     </nav>
 <?php }
