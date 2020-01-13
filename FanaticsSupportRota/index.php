@@ -8,6 +8,7 @@ $view->pageTitle = 'Support Rota';
 require_once ('Models/UserDataSet.php');
 require_once ('Models/SupportTeamDataSet.php');
 require_once ('Models/GenerateRota.php');
+require_once ('Models/UnavailabilityDataSet.php');
 
 $supportTeamObject = new SupportTeamDataSet();
 
@@ -15,11 +16,14 @@ $supportTeamObject = new SupportTeamDataSet();
 //Generates a new rota for x amount of weeks (starting the beginning of the current week)
 if(isset($_POST['generateRota'])){
     $rotaObject = new GenerateRota();
-    $rotaObject->generateRota(8);
+    $rotaObject->generateRota(16);
 }
 
-$view->supportRota = $supportTeamObject->getSupportTeams(8);
+$view->supportRota = $supportTeamObject->getSupportTeams(16);
 
+$unavailabilityObject = new UnavailabilityDataSet();
+$test = $unavailabilityObject->checkAvailability("Omar.Farrah", "2020-01-06", "2020-01-19");
+var_dump($test);
 
 
 if (isset($_POST['signIn'])) {
