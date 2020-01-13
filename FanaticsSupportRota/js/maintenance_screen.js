@@ -35,11 +35,7 @@ function handleDeveloperRotaDrop(event, ui) {
 function removeDeveloperFromSupport(index)
 {
     // Get name from current developer in slot
-    //var name = $("#rotaSlot" + index)[0].children[0].children[0].innerText;
-    var name = $("#rotaSlot" + index)[0].children[0].children[0].innerText;
-    var name = name.trim();
-    console.log(name);
-    console.log(name === "Billy");
+    var name = $("#rotaSlot" + index)[0].children[0].children[0].innerText.trim();
 
     // Find the dev card with the username and display it again
     $(".draggableDevelopers:contains(" + name + ")")[0].style.display = "block";
@@ -71,6 +67,7 @@ function updateRota() {
         data: {rota: modified_rota},
         success: function(){
             console.log("Success");
+            location.reload();
         }
     })
 }
