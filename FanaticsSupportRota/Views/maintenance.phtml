@@ -17,20 +17,16 @@
                         <div class="card-body">
                             <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
                                 <p class="card-text" id="originalDev<?= $index ?>">
+                                    <span id="originalDeveloperName"><?= $team->getDeveloper1() ?></span>
+                                    <button class='trashButtonOriginalDev' onclick='removeOriginalDevFromSupport(<?= $index ?>)'><i class='fas fa-trash-alt'></i></button>
                                 </p>
                             </div>
-                            <script type="text/javascript">
-                                var name = "<?= $team->getDeveloper1() ?>";
-                                document.getElementById("originalDev<?= $index ?>").innerHTML = name + "<button class='trashButtonOriginalDev' onclick='removeOriginalDevFromSupport(<?= $index ?>)'><i class='fas fa-trash-alt'></i></button>";
-                            </script>
                             <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
                                 <p class="card-text" id="originalDev<?= $index ?>">
+                                    <span id="originalDeveloperName"><?= $team->getDeveloper2() ?></span>
+                                    <button class='trashButtonOriginalDev' onclick='removeOriginalDevFromSupport(<?= $index ?>)'><i class='fas fa-trash-alt'></i></button>
                                 </p>
                             </div>
-                            <script type="text/javascript">
-                                var name = "<?= $team->getDeveloper2() ?>";
-                                document.getElementById("originalDev<?= $index ?>").innerHTML = name + "<button class='trashButtonOriginalDev' onclick='removeOriginalDevFromSupport(<?= $index ?>)'><i class='fas fa-trash-alt'></i></button>";
-                            </script>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -51,7 +47,7 @@
                                 <p class="card-text" id="devCardText<?= $index ?>">
                                     <span id="devCardName"><?= $user->getUsername() ?></span>
                                     <button class="trashButton" id="trash<?= $index ?>"
-                                            onclick="removeDeveloperFromSupport(<?= $index ?>)"><i class="fas fa-trash-alt"></i>
+                                            onclick="removeOriginalDevFromSupport(<?= $index ?>)"><i class="fas fa-trash-alt"></i>
                                     </button>
                                 </p>
                             </div>
