@@ -18,52 +18,29 @@ function init() {
 }
 
 function handleDeveloperRotaDrop(event, ui) {
-    // if ($(this)[0].innerText === "** Dev Required **"){
-    //     // ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
-    //     // ui.draggable.draggable('option', 'revert', false);
-    //     // ui.draggable.draggable("disable");
-    //     // ui.draggable.find(".trashButton")[0].style.display = "inline";
-    //     var name = ui.draggable.find("#devCardName")[0].innerText;
-    //     var originalName = $(t
-    //     // modified_rota[name] = $(this).closest("#supportTeam").find("#startDate")[0].innerText;
-    //     console.log(modified_rota);
-    // }
-//     var original = $(this)[0].innerText;
-//     var newName = ui.draggable.find("#devCardName")[0].innerText;
-//     console.log(original);
-//     console.log(newName);
 
-//     if ($(this)[0].innerText === "** Dev Required **") {
-//         $(this)[0].innerText = ui.draggable.find("#devCardName")[0].innerText;
-//         £(this)[0].innerHTML = ""
-//     }
-//     if ($(this)[0].innerText === "** Dev Required **") {
-//         $(this)[0].children[0].innerText = ui.draggable.find("#devCardName")[0].innerText;
-//
-//         $(this)[0].style.backgroundColor = "CornflowerBlue";
-//
-//     }
+    // Don't allow devs to be dropped on top of another dev
     if ($(this)[0].innerText === "** Developer Required **") {
-        console.log($(this)[0].children[0].children[0].innerText);
-        console.log(ui.draggable.find("#devCardName")[0].innerText);
+        // Don't show dev in teams list
         ui.draggable.css("display", "none");
+        // Sets rota slot to display devs name
         $(this)[0].children[0].children[0].innerText = ui.draggable.find("#devCardName")[0].innerText;
+        // Shows trash button
         $(this)[0].children[0].children[1].style.display = "inline";
+        // Change background colour to show it has been manually modified
         $(this)[0].style.backgroundColor = "CornflowerBlue";
     }
 }
 
 function removeDeveloperFromSupport(index)
 {
-    document.getElementById("devCard" + index).style.left = 0;
-    document.getElementById("devCard" + index).style.top = 0;
-    document.getElementById("trash" + index).style.display = "none";
-    $("#devCard" + index).draggable("option", "revert", true);
-    $("#devCard" + index).draggable("enable");
-}
+    // Get name from current developer in slot
+    var name = $("#rotaSlot" + index)[0].children[0].children[0].innerText;
 
-function removeOriginalDevFromSupport(index)
-{
+    // Find the dev card with the username and display it again
+    $(".draggableDevelopers:contains(" + name + ")")[0].style.display = "block";
+
+    // Set the rota slot to red, don't show trash button, say developer required
     $("#rotaSlot" + index)[0].style.backgroundColor = "red";
     $("#rotaSlot" + index)[0].children[0].children[0].innerText = "** Developer Required **";
     $("#rotaSlot" + index)[0].children[0].children[1].style.display = "none";

@@ -18,13 +18,13 @@
                             <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
                                 <p class="card-text" id="originalDev<?= $index ?>">
                                     <span id="originalDeveloperName"><?= $team->getDeveloper1() ?></span>
-                                    <button class='trashButtonOriginalDev' onclick='removeOriginalDevFromSupport(<?= $index ?>)'><i class='fas fa-trash-alt'></i></button>
+                                    <button class='trashButtonOriginalDev' onclick='removeDeveloperFromSupport(<?= $index ?>)'><i class='fas fa-trash-alt'></i></button>
                                 </p>
                             </div>
                             <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
                                 <p class="card-text" id="originalDev<?= $index ?>">
                                     <span id="originalDeveloperName"><?= $team->getDeveloper2() ?></span>
-                                    <button class='trashButtonOriginalDev' onclick='removeOriginalDevFromSupport(<?= $index ?>)'><i class='fas fa-trash-alt'></i></button>
+                                    <button class='trashButtonOriginalDev' onclick='removeDeveloperFromSupport(<?= $index ?>)'><i class='fas fa-trash-alt'></i></button>
                                 </p>
                             </div>
                         </div>
@@ -46,9 +46,7 @@
                             <div class="dev draggableDevelopers" id="devCard<?= ++$index ?>">
                                 <p class="card-text" id="devCardText<?= $index ?>">
                                     <span id="devCardName"><?= $user->getUsername() ?></span>
-                                    <button class="trashButton" id="trash<?= $index ?>"
-                                            onclick="removeOriginalDevFromSupport(<?= $index ?>)"><i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    <!-- Button here -->
                                 </p>
                             </div>
                         <?php endforeach; ?>
