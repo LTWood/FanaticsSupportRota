@@ -99,4 +99,18 @@ class SupportTeamDataSet
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$developer2, $startDate]);
     }
+
+    /*
+     * findUserRota selects all the rotas from a single user using the username they are logged in with
+     */
+    public function findUserRota($username)
+    {
+        $sqlQuery = "SELECT * FROM support_team WHERE developer_1 = ? OR developer_2 = ?";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$username,$username]);
+        while ($row = $statement->fetch()) {
+            $dataSet[] = new SupportTeam($row);
+        }
+        return $dataSet;
+    }
 }
