@@ -52,7 +52,7 @@ class GenerateRota
                 }
                 $dev1 = $users[$v1]->getUsername();
                 $dev2 = $users[$v2]->getUsername();
-                if()
+//                if()
             }
 
             array_push($devPairs, $dev1);
