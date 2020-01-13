@@ -22,6 +22,10 @@ body{
     margin: 5px;
 }
 
+h4 {
+    color: white;
+}
+
 .navbar-light .navbar-nav .nav-link {
     color: black;
 }
@@ -50,11 +54,13 @@ body{
 
 .card-body{
     padding: 0;
+    margin-bottom: 5px;
 }
 
 .empty{
     background-color: white;
 }
+
 #currentDate {
     text-align: center;
 }
@@ -93,4 +99,24 @@ body{
 
 .trashButtonOriginalDev {
     display: inline;
+}
+
+#logOutBtn {
+    margin-left: 5px;
+}
+
+.form-group label {
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+
+.dropright {
+    margin-bottom: 15px;
+}
+
+.createAcc {
+    margin-top: 20px;
 }
