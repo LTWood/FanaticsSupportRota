@@ -42,9 +42,14 @@ class UnavailabilityDataSet{
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$username, $date_start, $date_end]);
         $dataSet = [];
+//        $row = $statement->fetch();
+//        var_dump($row);
+
         while ($row = $statement->fetch()) {
             $dataSet[] = new Unavailability($row);
         }
-        return $dataSet;
+
+        var_dump($dataSet);
+//        return $dataSet;
     }
 }

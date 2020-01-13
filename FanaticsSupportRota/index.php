@@ -22,8 +22,8 @@ if(isset($_POST['generateRota'])){
 $view->supportRota = $supportTeamObject->getSupportTeams(16);
 
 $unavailabilityObject = new UnavailabilityDataSet();
-$test = $unavailabilityObject->checkAvailability("Omar.Farrah", "2020-01-06", "2020-01-19");
-var_dump($test);
+$unavailabilityObject->checkAvailability("Omar.Farrah", "2020-01-06", "2020-01-19");
+//var_dump($test);
 
 
 if (isset($_POST['signIn'])) {
