@@ -2,7 +2,7 @@
 
 //* Class for storing unavilable staff */
 
-class unavailability{
+class Unavailability{
 
     //private fields for storing unavailable staff data
     private $id, $username, $date_start, $date_end;
