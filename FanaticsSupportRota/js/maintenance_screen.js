@@ -45,3 +45,20 @@ function removeDeveloperFromSupport(index)
     $("#rotaSlot" + index)[0].children[0].children[0].innerText = "** Developer Required **";
     $("#rotaSlot" + index)[0].children[0].children[1].style.display = "none";
 }
+
+function updateRota() {
+    var modified_rota = {};
+    $("#supportTeamColumn").children("#supportTeam").each(function() {
+        var date_start = $(this).find("#startDate")[0].innerText;
+        var dev1 = $(this).find(".card-body")[0].children[0].innerText;
+        var dev2 = $(this).find(".card-body")[0].children[1].innerText;
+        var dev_array = [];
+        dev_array.push(dev1);
+        dev_array.push(dev2);
+        //console.log(date_start);
+        // console.log(dev1);
+        // console.log(dev2);
+        modified_rota[date_start] = dev_array;
+    });
+    //console.log(modified_rota);
+}

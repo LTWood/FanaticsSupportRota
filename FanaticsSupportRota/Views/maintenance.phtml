@@ -4,7 +4,7 @@
     <div class="container">
         <header class="header">Maintenance Screen</header>
         <div class="row">
-            <div class="col-xl-6">
+            <div class="col-xl-6" id="supportTeamColumn">
                 <?php $index = 0 ?>
                 <?php foreach ($view->supportTeams as $team): ?>
                     <div class="card my-3" id="supportTeam">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <button>Save modified rota</button>
+                <button onclick="updateRota()">Save modified rota</button>
             </div>
 
             <div class="col-xl-6">
