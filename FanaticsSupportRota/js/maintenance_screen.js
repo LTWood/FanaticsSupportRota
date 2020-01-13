@@ -7,7 +7,7 @@ function init() {
         containment: 'document',
         cursor: 'move',
         revert: true,
-        stack: '.card',
+        stack: '.col-xl-6',
     } );
 
     $('.droppableRotaSlot').droppable( {
