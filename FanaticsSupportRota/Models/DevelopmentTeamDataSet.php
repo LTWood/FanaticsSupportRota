@@ -3,7 +3,6 @@
 //Incorporating the 'Database' and 'DevelopmentTeam' classes
 require_once ('Models/Database.php');
 require_once ('Models/DevelopmentTeam.php');
-require_once ('Models/User.php');
 /*
  * Class that maintains the interaction between the database and the client for the development team data
  */
@@ -54,18 +53,6 @@ class DevelopmentTeamDataSet
         $sqlQuery = 'UPDATE users SET development_team = '.$teamName.' WHERE username = '.$username;
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
-    }
-
-    //Get all developers for a specific team
-    public function getDevelopers($teamName){
-        $sqlQuery = 'SELECT username, development_team FROM users WHERE development_team = ?';
-        $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute([$teamName]);
-        $dataSet = [];
-        while($row = $statement->fetch(PDO::FETCH_ASSOC)){
-            array_push($dataSet, new User($row));
-        }
-        return $dataSet;
     }
 
 }
