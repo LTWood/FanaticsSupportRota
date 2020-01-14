@@ -69,16 +69,30 @@ class GenerateRota
             $junior = true;
 
             //Add while loop that repeats selection of users if theyre not from different dev teams
+            $difTeams = false;
+            while(!$difTeams) {
+                $difTeams = true;
 
-            $user1 = mt_rand(0, count($users) - 1);
-            $user2 = mt_rand(0, count($users) - 1);
-            while ($user2 == $user1) { //If the same two people match then select another dev
+                $user1 = mt_rand(0, count($users) - 1);
                 $user2 = mt_rand(0, count($users) - 1);
+                while ($user2 == $user1) { //If the same two people match then select another dev
+                    $user2 = mt_rand(0, count($users) - 1);
+                }
+
+                $team1 = $users[$user1]->getDevTeam();
+                $team2 = $users[$user2]->getDevTeam();
+                if($team1 == $team2){
+                    $difTeams = false;
+//                    echo "TEAMS MATCH!!!";
+                }
+                else{
+//                    echo $team1 ."  ". $team2. "<br>";
+                }
             }
 
-            $team1 = $users[$user1]->getDevTeam();
-            $team2 = $users[$user2]->getDevTeam();
-
+            //Testing ###REMOVE???###
+            $username1 = $users[$user1]->getUsername();
+            $username2 = $users[$user2]->getUsername();
 
 
             $user1 = $users[$user1]->getExperience();
@@ -91,9 +105,9 @@ class GenerateRota
             }
 
         }
-//
-//        var_dump($user1);
-//        var_dump($user2);
+        //TESTING ###REMOVE###
+        echo    $username1 . " XP: ".$user1 . " Team: ". $team1."<br>";
+        echo    $username2 . " XP: ".$user2 . " Team: ". $team2."<br>";
 
 
         //Generates random pairs of devs
