@@ -26,7 +26,7 @@ class GenerateRota
         }
 
         //Remove old support teams that may overlap with generated ones
-//        $this->removeRotaSupportTeams($weeks);
+        $this->removeRotaSupportTeams($weeks);
 
         //Creates all the dates for the support teams (two week intervals)
         $dates = [];
@@ -39,11 +39,11 @@ class GenerateRota
         $devPairs = $this->generateDevPairs($weeks, $dates, $consecutiveLimit);
 
         //Creates a support team using the dev pair and the dates
-//        $datesIndex = 0;
-//        for($i=0;$i<($weeks/2);$i++){
-//            $supportTeamObject->addSupportTeam($dates[$datesIndex], $dates[$datesIndex + 1], $devPairs[$datesIndex], $devPairs[$datesIndex+1]); //Creates the support team
-//            $datesIndex = $datesIndex + 2;
-//        }
+        $datesIndex = 0;
+        for($i=0;$i<($weeks/2);$i++){
+            $supportTeamObject->addSupportTeam($dates[$datesIndex], $dates[$datesIndex + 1], $devPairs[$datesIndex], $devPairs[$datesIndex+1]); //Creates the support team
+            $datesIndex = $datesIndex + 2;
+        }
     }
 
     //Method for removing all support teams that will overlap with the rotas support teams
@@ -63,53 +63,6 @@ class GenerateRota
         //Grabs all the current devs
         $users = $usersObject->getAllUsers();
 
-
-        $junior = false;
-        while(!$junior) {
-            $junior = true;
-
-            //Add while loop that repeats selection of users if theyre not from different dev teams
-            $difTeams = false;
-            while(!$difTeams) {
-                $difTeams = true;
-
-                $user1 = mt_rand(0, count($users) - 1);
-                $user2 = mt_rand(0, count($users) - 1);
-                while ($user2 == $user1) { //If the same two people match then select another dev
-                    $user2 = mt_rand(0, count($users) - 1);
-                }
-
-                $team1 = $users[$user1]->getDevTeam();
-                $team2 = $users[$user2]->getDevTeam();
-                if($team1 == $team2){
-                    $difTeams = false;
-//                    echo "TEAMS MATCH!!!";
-                }
-                else{
-//                    echo $team1 ."  ". $team2. "<br>";
-                }
-            }
-
-            //Testing ###REMOVE???###
-            $username1 = $users[$user1]->getUsername();
-            $username2 = $users[$user2]->getUsername();
-
-
-            $user1 = $users[$user1]->getExperience();
-            $user2 = $users[$user2]->getExperience();
-            if(($user1 == 'junior')&&($user2 != 'Senior')){
-                $junior = false;
-            }
-            if(($user2 == 'junior')&&($user1 != 'Senior')){
-                $junior = false;
-            }
-
-        }
-        //TESTING ###REMOVE###
-        echo    $username1 . " XP: ".$user1 . " Team: ". $team1."<br>";
-        echo    $username2 . " XP: ".$user2 . " Team: ". $team2."<br>";
-
-
         //Generates random pairs of devs
         $devPairs = [];
         for ($i = 0; $i < $weeks; $i += 2) {
@@ -118,41 +71,56 @@ class GenerateRota
             while($valid == false){
                 $valid = true;
 
+                $junior = false;
+                while(!$junior) {
+                    $junior = true;
 
+                    //Add while loop that repeats selection of users if theyre not from different dev teams
+                    $difTeams = false;
+                    while(!$difTeams) {
+                        $difTeams = true;
 
-                //Generating a random dev pair ###Change this if want to match a senior with a junior dev! ###
-                $v1 = mt_rand(0, count($users) - 1);
-                $v2 = mt_rand(0, count($users) - 1);
-                while ($v2 == $v1) { //If the same two people match then select another dev
-                    $v2 = mt_rand(0, count($users) - 1);
+                        $user1 = mt_rand(0, count($users) - 1);
+                        $user2 = mt_rand(0, count($users) - 1);
+                        while ($user2 == $user1) { //If the same two people match then select another dev
+                            $user2 = mt_rand(0, count($users) - 1);
+                        }
+
+                        $team1 = $users[$user1]->getDevTeam();
+                        $team2 = $users[$user2]->getDevTeam();
+                        if($team1 == $team2) {
+                            $difTeams = false;
+                        }
+                    }
+
+                    $dev1 = $users[$user1];
+                    $dev2 = $users[$user2];
+
+                    if(($dev1->getExperience() == 'Junior')&&($dev2->getExperience() != 'Senior')){
+                        $junior = false;
+                    }
+                    if(($dev2->getExperience() == 'Junior')&&($dev1->getExperience() != 'Senior')){
+                        $junior = false;
+                    }
+
                 }
-                // ### ###
-
-
-
-
-
-                $dev1 = $users[$v1]->getUsername(); //Get usernames for both devs
-                $dev2 = $users[$v2]->getUsername();
-
-
 
                 //Checking availability of devs for the support team they will be assigned to
-                if(!$unavailabilityObject->checkAvailability($dev1, $dates[$i], $dates[$i+1])){
+                if(!$unavailabilityObject->checkAvailability($dev1->getUsername(), $dates[$i], $dates[$i+1])){
                     $valid = false;
                 }
-                if(!$unavailabilityObject->checkAvailability($dev2, $dates[$i], $dates[$i+1])){
+                if(!$unavailabilityObject->checkAvailability($dev2->getUsername(), $dates[$i], $dates[$i+1])){
                     $valid = false;
                 }
             }
-            array_push($devPairs, $dev1); //add devs to array of devs
-            array_push($devPairs, $dev2);
+            array_push($devPairs, $dev1->getUsername()); //add devs to array of devs
+            array_push($devPairs, $dev2->getUsername());
         }
 
         //Calculating amount of consecutive support team assignments for each dev.
         $consecutiveDevs = [];
         for ($i = 0; $i < count($devPairs); $i++) {
-            $consecutiveDevs[$devPairs[$i]] = 1;
+            $consecutiveDevs[$devPairs[$i]] = 0;
         }
 
         //Array to loop through entire selected devs - If a consecutive match is found increment consecutive counter for that dev
@@ -171,7 +139,7 @@ class GenerateRota
         //Checking that no dev is over the limit for consecutive support team assignments
         $underLimit = true;
         for ($i = 0; $i < count($devPairs); $i++) {
-            if($consecutiveDevs[$devPairs[$i]] >= $consecutiveLimit){
+            if($consecutiveDevs[$devPairs[$i]] > $consecutiveLimit){
                 $underLimit = false;
             }
         }
