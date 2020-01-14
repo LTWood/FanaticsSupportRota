@@ -13,12 +13,27 @@ $supportTeamObject = new SupportTeamDataSet();
 
 
 //Generates a new rota for x amount of weeks (starting the beginning of the current week)
-if(isset($_POST['generateRota'])){
+if(isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])){
     $rotaObject = new GenerateRota();
-    $rotaObject->generateRota(16, 3);
+    $rotaObject->generateRota(8);
 }
 
-$view->supportRota = $supportTeamObject->getSupportTeams(16);
+
+if (isset($_POST['viewNoWeeks']) && isset($_POST['noWeeksView'])){
+    if ($_POST['noWeeksView'] % 2 == 0){
+        $view->noWeeks = $_POST['noWeeksView'];
+        $view->supportRota = $supportTeamObject->getSupportTeams($_POST['noWeeksView']);
+    }
+    else {
+        $view->noWeeks = $_POST['noWeeksView']+1;
+        $view->supportRota = $supportTeamObject->getSupportTeams($_POST['noWeeksView']+1);
+    }
+
+}
+else {
+    $view->noWeeks = 8;
+    $view->supportRota = $supportTeamObject->getSupportTeams(8);
+}
 
 
 if (isset($_POST['signIn'])) {

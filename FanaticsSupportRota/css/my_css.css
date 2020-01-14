@@ -65,6 +65,14 @@ h4 {
     text-align: center;
 }
 
+#noWeeks {
+    text-align: center;
+}
+
+#noWeeksInput {
+    width: 35px;
+}
+
 .card-title {
     text-align: center;
 }
@@ -111,4 +119,8 @@ h4 {
 
 .createAcc {
     margin-top: 20px;
+}
+
+p.b {
+    text-align: right;
 }
