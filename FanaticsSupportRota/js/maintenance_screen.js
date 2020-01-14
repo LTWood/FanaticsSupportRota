@@ -60,7 +60,7 @@ function updateRota() {
         // console.log(dev2);
         modified_rota[index] = dev_array;
     });
-    //console.log(modified_rota);
+    console.log(modified_rota);
     $.ajax({
         url: "../updateRota.php",
         type: "post",
@@ -69,5 +69,5 @@ function updateRota() {
             console.log("Success");
             location.reload();
         }
-    })
+    });
 }
