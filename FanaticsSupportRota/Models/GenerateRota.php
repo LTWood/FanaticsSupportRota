@@ -26,7 +26,7 @@ class GenerateRota
         }
 
         //Remove old support teams that may overlap with generated ones
-        $this->removeRotaSupportTeams($weeks);
+//        $this->removeRotaSupportTeams($weeks);
 
         //Creates all the dates for the support teams (two week intervals)
         $dates = [];
@@ -39,11 +39,11 @@ class GenerateRota
         $devPairs = $this->generateDevPairs($weeks, $dates, $consecutiveLimit);
 
         //Creates a support team using the dev pair and the dates
-        $datesIndex = 0;
-        for($i=0;$i<($weeks/2);$i++){
-            $supportTeamObject->addSupportTeam($dates[$datesIndex], $dates[$datesIndex + 1], $devPairs[$datesIndex], $devPairs[$datesIndex+1]); //Creates the support team
-            $datesIndex = $datesIndex + 2;
-        }
+//        $datesIndex = 0;
+//        for($i=0;$i<($weeks/2);$i++){
+//            $supportTeamObject->addSupportTeam($dates[$datesIndex], $dates[$datesIndex + 1], $devPairs[$datesIndex], $devPairs[$datesIndex+1]); //Creates the support team
+//            $datesIndex = $datesIndex + 2;
+//        }
     }
 
     //Method for removing all support teams that will overlap with the rotas support teams
@@ -62,6 +62,40 @@ class GenerateRota
 
         //Grabs all the current devs
         $users = $usersObject->getAllUsers();
+
+
+        $junior = false;
+        while(!$junior) {
+            $junior = true;
+
+            //Add while loop that repeats selection of users if theyre not from different dev teams
+
+            $user1 = mt_rand(0, count($users) - 1);
+            $user2 = mt_rand(0, count($users) - 1);
+            while ($user2 == $user1) { //If the same two people match then select another dev
+                $user2 = mt_rand(0, count($users) - 1);
+            }
+
+            $team1 = $users[$user1]->getDevTeam();
+            $team2 = $users[$user2]->getDevTeam();
+
+
+
+            $user1 = $users[$user1]->getExperience();
+            $user2 = $users[$user2]->getExperience();
+            if(($user1 == 'junior')&&($user2 != 'Senior')){
+                $junior = false;
+            }
+            if(($user2 == 'junior')&&($user1 != 'Senior')){
+                $junior = false;
+            }
+
+        }
+//
+//        var_dump($user1);
+//        var_dump($user2);
+
+
         //Generates random pairs of devs
         $devPairs = [];
         for ($i = 0; $i < $weeks; $i += 2) {
@@ -70,6 +104,8 @@ class GenerateRota
             while($valid == false){
                 $valid = true;
 
+
+
                 //Generating a random dev pair ###Change this if want to match a senior with a junior dev! ###
                 $v1 = mt_rand(0, count($users) - 1);
                 $v2 = mt_rand(0, count($users) - 1);
@@ -77,6 +113,10 @@ class GenerateRota
                     $v2 = mt_rand(0, count($users) - 1);
                 }
                 // ### ###
+
+
+
+
 
                 $dev1 = $users[$v1]->getUsername(); //Get usernames for both devs
                 $dev2 = $users[$v2]->getUsername();
