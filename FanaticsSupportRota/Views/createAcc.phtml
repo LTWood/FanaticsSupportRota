@@ -1,10 +1,38 @@
 <?php require_once('template/header.phtml'); ?>
 
+
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd", minDate: 0});
+        } );
+    </script>
+    <script>
+        $(function() {
+            $( "#datepicker2" ).datepicker({dateFormat: "yy-mm-dd", minDate: 0});
+        } );
+    </script>
     <div class="container">
         <header class="header">Account Management</header>
         <div class="row createAcc">
-            <form class="col-xl-6">
+            <form class="col-xl-6" method="post" action="../createAcc.php">
                 <h4>Unavailability</h4>
+                <div class="form-group">
+                    <label for="listView">Select User</label>
+                    <select name="selectedUser" id = "listView">
+                        <?php foreach ($view->users as $user) :?>
+                        <option value = "<?= $user->getUsername()?>"> <?= $user->getUsername() ?></option>
+                        <?php endforeach ; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="datepicker">Select Start Date</label>
+                    <input type="text" id="datepicker" class="form-control" name="startDate" readonly="true">
+                </div>
+                <div class="form-group">
+                    <label for="datepicker2">Select End Date</label>
+                    <input type="text" id="datepicker2" class="form-control" name="endDate" readonly="true">
+                </div>
+                <button type="submit" class="btn btn-success" name="unavailabilitySubmit">Submit</button>
             </form>
             <form class="col-xl-6" method="post" action="../createAcc.php">
                 <h4>Create Account</h4>
@@ -26,12 +54,11 @@
                         <a class="dropdown-item" href="#">Developer</a>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success" name="createUserSubmit">Submit</button>
             </form>
             <?php if(isset($view->message)) : ?>
                 <div class="alert alert-dark" role="alert"><?= $view->message ?></div>
             <?php endif; ?>
         </div>
     </div>
-
 <?php require_once('template/footer.phtml'); ?>

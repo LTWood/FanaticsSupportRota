@@ -26,12 +26,14 @@ if (isset($_POST['signIn'])) {
         $login = new UserDataSet();
         if ($login->login($_POST['username'], $_POST['psw'])) {
             $_SESSION['user'] = $_POST['username'];
+            $_SESSION['type'] = $login->getUserType($_SESSION['user']);
         }
     }
 }
 if (isset($_POST["logout"]))
 {
     unset($_SESSION["user"]);
+    unset($_SESSION["type"]);
 }
 
 require_once('Views/index.phtml');

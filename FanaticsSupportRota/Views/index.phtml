@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="my-3 p-3 bg-white rounded box-shadow">
-                <?php if(isset($_SESSION['user'])){ ?>
+                <?php if(isset($_SESSION['user']) && $_SESSION['type'] == "admin"){ ?>
                 <form method="post" action="../index.php">
                     <input type="submit" class="btn btn-warning" name="generateRota" value="Generate New Rota"/>
                 </form>
