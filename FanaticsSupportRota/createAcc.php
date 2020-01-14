@@ -32,6 +32,20 @@ if (isset($_POST["logout"])) //Checks to see if the user logs out.
     unset($_SESSION["user"]);
 }
 
+if (isset($_POST["createTeamSubmit"]))
+{
+    if ($_POST["teamName"] == "")
+    {
+        $view->message = "Please enter a valid team name";
+    }
+    else
+        {
+            $addTeam = new DevelopmentTeamDataSet();
+            $addTeam->addDevTeam($_POST["teamName"]);
+            $view->message = "Added team called " . $_POST["teamName"];
+        }
+}
+
 if(isset($_POST["unavailabilitySubmit"]))
 {
     if (($_POST["startDate"]) == "")

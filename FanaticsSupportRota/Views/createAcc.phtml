@@ -34,6 +34,8 @@
                 </div>
                 <button type="submit" class="btn btn-success" name="unavailabilitySubmit">Submit</button>
             </form>
+        </div>
+        <div class="row createTeam">
             <form class="col-xl-6" method="post" action="../createAcc.php">
                 <h4>Create Account</h4>
                 <div class="form-group">
@@ -52,8 +54,8 @@
                 <div class="form-group">
                     <label for="listView">Select Developer Type</label>
                     <select name="selectedDev" id = "listView">
-                            <option value ="Admin">Admin</option>
-                            <option value ="Developer">Developer</option>
+                        <option value ="Admin">Admin</option>
+                        <option value ="Developer">Developer</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -66,9 +68,17 @@
                 </div>
                 <button type="submit" class="btn btn-success" name="createUserSubmit">Submit</button>
             </form>
-            <?php if(isset($view->message)) : ?>
-                <div class="alert alert-dark" role="alert"><?= $view->message ?></div>
-            <?php endif; ?>
+            <form class="col-xl-6" method="post" action="../createAcc.php">
+                <h4>Create Team</h4>
+                <div class="form-group">
+                    <label for="inputTeamName">Team Name</label>
+                    <input type="text" class="form-control" id="inputTeamName" placeholder="Team Name" name="teamName">
+                </div>
+                <button type="submit" class="btn btn-success" name="createTeamSubmit">Create Team</button>
+            </form>
         </div>
+        <?php if(isset($view->message)) : ?>
+            <div class="alert alert-dark" role="alert"><?= $view->message ?></div>
+        <?php endif; ?>
     </div>
 <?php require_once('template/footer.phtml'); ?>
