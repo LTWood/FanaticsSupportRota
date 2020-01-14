@@ -36,13 +36,14 @@ function removeDeveloperFromSupport(index)
 {
     // Get name from current developer in slot
     var name = $("#rotaSlot" + index)[0].children[0].children[0].innerText.trim();
-
+    // var name = $("#rotaSlot" + index)[0].children[0];
     // Find the dev card with the username and display it again
     $(".draggableDevelopers:contains(" + name + ")")[0].style.display = "block";
     // // Set the rota slot to red, don't show trash button, say developer required
     $("#rotaSlot" + index)[0].style.backgroundColor = "red";
     $("#rotaSlot" + index)[0].children[0].children[0].innerText = "** Developer Required **";
     $("#rotaSlot" + index)[0].children[0].children[1].style.display = "none";
+    // console.log($("#rotaSlot" + index)[0]);
 }
 
 function updateRota() {
