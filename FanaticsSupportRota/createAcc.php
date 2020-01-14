@@ -5,7 +5,8 @@ $view = new stdClass();
 $view->pageTitle = 'Create Account';
 
 require_once ('Models/UserDataSet.php');
-require_once ("Models/UnavilabilityDataSet.php");
+require_once ('Models/DevelopmentTeamDataSet.php');
+require_once ("Models/UnavailabilityDataSet.php");
 
 /*
  * Checks to see if the submit button has been pressed. If it has, and both team and username are set, it calls
@@ -15,12 +16,15 @@ require_once ("Models/UnavilabilityDataSet.php");
 $getUsers = new userDataSet;
 $view->users = $getUsers->getAllUsers();
 
+$getTeams = new DevelopmentTeamDataSet;
+$view->teams = $getTeams->getDevelopmentTeams();
+
 if (isset($_POST['createUserSubmit']))
 {
-    if (isset($_POST['username']) && isset($_POST['team']))
+    if (isset($_POST['username']))
     {
         $login = new UserDataSet();
-        $view->message = $login->createUser($_POST['username'], $_POST['team']);
+        $view->message = $login->createUser($_POST['username'], $_POST['selectedTeam'], $_POST['selectedDev'], $_POST['selectedExp']);
     }
 }
 if (isset($_POST["logout"])) //Checks to see if the user logs out.

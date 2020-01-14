@@ -42,17 +42,27 @@
                     <small class="form-text text-muted">We'll never share your details with anyone else.</small>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputTeam">Team</label>
-                    <input type="text" class="form-control" id="exampleInputTeam" placeholder="Team" name="team">
+                    <label for="listView">Select Team</label>
+                    <select name="selectedTeam" id = "listView">
+                        <?php foreach ($view->teams as $team) :?>
+                            <option value = "<?= $team->getTeamName()?>"> <?= $team->getTeamName() ?></option>
+                        <?php endforeach ; ?>
+                    </select>
                 </div>
-                <div class="dropright">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        Dev Type
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Admin</a>
-                        <a class="dropdown-item" href="#">Developer</a>
-                    </div>
+                <div class="form-group">
+                    <label for="listView">Select Developer Type</label>
+                    <select name="selectedDev" id = "listView">
+                            <option value ="Admin">Admin</option>
+                            <option value ="Developer">Developer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="listView">Select Developer Experience</label>
+                    <select name="selectedExp" id = "listView">
+                        <option value ="Junior">Junior</option>
+                        <option value ="Experienced">Experienced</option>
+                        <option value ="Senior">Senior</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-success" name="createUserSubmit">Submit</button>
             </form>
