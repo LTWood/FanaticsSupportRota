@@ -12,7 +12,7 @@
                             ---
                             <span id="endDate"><?= $team->getDateEnd() ?></span>
                         </h5>
-                        <button onclick="">Get available devs</button>
+                        <button onclick="loaddevs(['<?= $team->getDateStart() ?>', '<?= $team->getDateEnd() ?>'])">Get available devs</button>
                     </div>
                     <div class="card-body">
                         <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
@@ -34,6 +34,11 @@
                                 <button class='trashButtonOriginalDev'
                                         onclick='removeDeveloperFromSupport(<?= $index ?>)'><i
                                             class='fas fa-trash-alt'></i></button>
+                                <?php if (!$view->unavailabilityObject->checkAvailability($team->getDeveloper2(), $team->getDateStart(), $team->getDateEnd())): ?>
+                                    <script>
+                                        document.getElementById("rotaSlot" + <?= $index ?>).style.backgroundColor = "red";
+                                    </script>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -43,25 +48,7 @@
         </div>
 
         <div class="col-xl-6" id="developerTeamColumn">
-            <?php foreach ($view->developerTeams as $team): ?>
-            <div class="card my-3">
-                <div class="card-header">
-                    <h5><?= $team->getTeamName() ?></h5>
-                </div>
-                <div class="card-body">
-                    <?php $users = $view->developerTeamObject->getDevelopers($team->getTeamName()) ?>
-                    <?php $userIndex = 0 ?>
-                    <?php foreach ($users as $user): ?>
-                        <div class="dev draggableDevelopers" id="devCard<?= ++$index ?>">
-                            <p class="card-text" id="devCardText<?= $index ?>">
-                                <span id="devCardName"><?= $user->getUsername() ?></span>
-                                <!-- Button here -->
-                            </p>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <?php endforeach; ?>
+
         </div>
     </div>
 </body>
