@@ -1,0 +1,32 @@
+<?php require_once('template/header.phtml'); ?>
+
+    <div class="container">
+<!--        <header class="header">Audit Log</header>-->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="my-3 p-3 bg-white rounded box-shadow">
+<!--                    --><?php //if(isset($_SESSION['user']) && $_SESSION['type'] == "admin"): ?>
+
+                        <?php foreach ($view->auditLog as $audit) : ?>
+                            <div class="card my-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+
+                                    </h5>
+                                    <div class="users text-center">
+                                        <?php echo $audit->getMessage(); ?>
+                                        <a href="../auditLog.php?Del=<?= $audit->getID() ?>">DEL</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+
+<!--                    --><?php //endif; ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+<?php require_once('template/footer.phtml'); ?>
