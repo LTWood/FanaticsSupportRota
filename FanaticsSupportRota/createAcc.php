@@ -5,7 +5,7 @@ $view = new stdClass();
 $view->pageTitle = 'Create Account';
 
 require_once ('Models/UserDataSet.php');
-require_once ("Models/UnavilabilityDataSet.php");
+require_once ("Models/UnavailabilityDataSet.php");
 
 /*
  * Checks to see if the submit button has been pressed. If it has, and both team and username are set, it calls
