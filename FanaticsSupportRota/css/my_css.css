@@ -112,3 +112,10 @@ h4 {
 .createAcc {
     margin-top: 20px;
 }
+
+#unavailabilityList
+{
+    width:380px;
+    height:275px;
+    overflow: auto;
+}

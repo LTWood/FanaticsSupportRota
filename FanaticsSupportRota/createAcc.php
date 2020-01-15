@@ -13,12 +13,6 @@ require_once ("Models/UnavailabilityDataSet.php");
  * createUser from the userDataSet.
  */
 
-$getUsers = new userDataSet;
-$view->users = $getUsers->getAllUsers();
-
-$getTeams = new DevelopmentTeamDataSet;
-$view->teams = $getTeams->getDevelopmentTeams();
-
 if (isset($_POST['createUserSubmit']))
 {
     if (isset($_POST['username']))
@@ -63,5 +57,26 @@ if(isset($_POST["unavailabilitySubmit"]))
             $view->message = "Unavailability updated for " . $_POST["selectedUser"]. $_POST["startDate"] . $_POST["endDate"];
         }
 }
+
+if(isset($_POST["userSchedule"]))
+{
+    $view->userSchedule=$_POST["userSchedule"];
+    $getSchedule = new UnavailabilityDataSet();
+    $view->unavailability = $getSchedule->getUnavailability($_POST["userSchedule"]);
+}
+
+
+if(isset($_POST["delete"]))
+{
+    $deleteUnavailability = new UnavailabilityDataSet();
+    $deleteUnavailability->removeUnavailability($_POST["delete"]);
+}
+
+$getUsers = new UserDataSet();
+$view->users = $getUsers->getAllUsers();
+
+$getTeams = new DevelopmentTeamDataSet();
+$view->teams = $getTeams->getDevelopmentTeams();
+
 
 require_once('Views/createAcc.phtml');

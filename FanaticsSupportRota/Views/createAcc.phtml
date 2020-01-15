@@ -1,20 +1,11 @@
 <?php require_once('template/header.phtml'); ?>
 
 
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd", minDate: 0});
-        } );
-    </script>
-    <script>
-        $(function() {
-            $( "#datepicker2" ).datepicker({dateFormat: "yy-mm-dd", minDate: 0});
-        } );
-    </script>
+
     <div class="container">
         <header class="header">Account Management</header>
         <div class="row createAcc">
-            <form class="col-xl-6" method="post" action="../createAcc.php">
+            <form class="col" method="post" action="../createAcc.php">
                 <h4>Unavailability</h4>
                 <div class="form-group">
                     <label for="listView">Select User</label>
@@ -34,9 +25,38 @@
                 </div>
                 <button type="submit" class="btn btn-success" name="unavailabilitySubmit">Submit</button>
             </form>
+            <form class="col" method="post" action="../createAcc.php">
+                <div class="form-group">
+                    <label for="listView">Select User</label>
+                    <select name="userSchedule" id = "listView" onchange="this.form.submit()">
+                        <?php foreach ($view->users as $user) :?>
+                            <option value = "<?= $user->getUsername()?>" <?php if(isset($view->userSchedule) && $view->userSchedule == $user->getUsername()) echo "selected = '" . $user->getUsername() . "''"?>> <?= $user->getUsername() ?></option>
+                        <?php endforeach ; ?>
+                    </select>
+                </div>
+            </form>
+            <div class = col id = "unavailabilityList">
+                <?php if(isset($view->unavailability)) :?>
+                    <?php foreach ($view->unavailability as $UnavailabilityData) : ?>
+                        <div class="card my-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <?= date('d-m-Y',strtotime($UnavailabilityData->getDateStart())); ?> ---
+                                    <?= date('d-m-Y',strtotime($UnavailabilityData->getDateEnd())); ?>
+                                </h5>
+                            </div>
+                            <div>
+                                <form method="post" action="../createAcc.php">
+                                    <button class="btn-primary" name="delete" value="<?=$UnavailabilityData->getId()?>">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </div>
         <div class="row createTeam">
-            <form class="col-xl-6" method="post" action="../createAcc.php">
+            <form class="col" method="post" action="../createAcc.php">
                 <h4>Create Account</h4>
                 <div class="form-group">
                     <label for="exampleInputUsername">Username</label>
@@ -68,7 +88,7 @@
                 </div>
                 <button type="submit" class="btn btn-success" name="createUserSubmit">Submit</button>
             </form>
-            <form class="col-xl-6" method="post" action="../createAcc.php">
+            <form class="col" method="post" action="../createAcc.php">
                 <h4>Create Team</h4>
                 <div class="form-group">
                     <label for="inputTeamName">Team Name</label>
