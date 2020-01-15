@@ -47,7 +47,7 @@ class GenerateRota
         }
         //Add a audit message for the generation
         $auditLogObject = new AuditLogDataSet();
-        $message = "".$_SESSION['user']." Generated a new support rota for ".$weeks." weeks at ".date("H:i:s")." On ".date("d-m-Y");
+        $message = "".$_SESSION['user']." Generated a new support rota for ".$weeks." weeks at ".date("H:i:s")." On ".date("d/m/Y");
         $auditLogObject->addAuditLog($message);
     }
 
@@ -71,10 +71,7 @@ class GenerateRota
         //Generates random pairs of devs
         $devPairs = [];
         for ($i = 0; $i < $weeks; $i += 2) {
-            //If a dev is not available on the date assigned then generate two new devs
-            $valid = false;
-            while($valid == false){
-                $valid = true;
+
 
                 //If theres a junior dev not matched with a senior then generate two new devs
                 $junior = false;
@@ -83,18 +80,34 @@ class GenerateRota
 
                     //Add while loop that repeats selection of users if theyre not from different dev teams
                     $difTeams = false;
-                    while(!$difTeams) {
+                    while (!$difTeams) {
                         $difTeams = true;
 
-                        $user1 = mt_rand(0, count($users) - 1);
-                        $user2 = mt_rand(0, count($users) - 1);
-                        while ($user2 == $user1) { //If the same two people match then select another dev
+                        //If a dev is not available on the date assigned then generate two new devs
+                        $valid = false;
+                        while ($valid == false) {
+                            $valid = true;
+
+                            $user1 = mt_rand(0, count($users) - 1);
                             $user2 = mt_rand(0, count($users) - 1);
+                            while ($user2 == $user1) { //If the same two people match then select another dev
+                                $user2 = mt_rand(0, count($users) - 1);
+                            }
+
+
+                            //Checking availability of devs for the support team they will be assigned to
+                            if (!$unavailabilityObject->checkAvailability($users[$user1]->getUsername(), $dates[$i], $dates[$i + 1])) {
+                                $valid = false;
+                            }
+                            if (!$unavailabilityObject->checkAvailability($users[$user2]->getUsername(), $dates[$i], $dates[$i + 1])) {
+                                $valid = false;
+                            }
                         }
+                        //CLOSE }
 
                         $team1 = $users[$user1]->getDevTeam();
                         $team2 = $users[$user2]->getDevTeam();
-                        if($team1 == $team2) {
+                        if ($team1 == $team2) {
                             $difTeams = false;
                         }
                     }
@@ -102,23 +115,15 @@ class GenerateRota
                     $dev1 = $users[$user1];
                     $dev2 = $users[$user2];
                     //Compares the experience of each dev (Junior should be paired with a Senior
-                    if(($dev1->getExperience() == 'Junior')&&($dev2->getExperience() != 'Senior')){
+                    if (($dev1->getExperience() == 'Junior') && ($dev2->getExperience() != 'Senior')) {
                         $junior = false;
                     }
-                    if(($dev2->getExperience() == 'Junior')&&($dev1->getExperience() != 'Senior')){
+                    if (($dev2->getExperience() == 'Junior') && ($dev1->getExperience() != 'Senior')) {
                         $junior = false;
                     }
 
                 }
 
-                //Checking availability of devs for the support team they will be assigned to
-                if(!$unavailabilityObject->checkAvailability($dev1->getUsername(), $dates[$i], $dates[$i+1])){
-                    $valid = false;
-                }
-                if(!$unavailabilityObject->checkAvailability($dev2->getUsername(), $dates[$i], $dates[$i+1])){
-                    $valid = false;
-                }
-            }
             array_push($devPairs, $dev1->getUsername()); //add devs to array of devs
             array_push($devPairs, $dev2->getUsername());
         }
