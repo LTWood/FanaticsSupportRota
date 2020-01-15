@@ -1,0 +1,21 @@
+<?php foreach ($view->developerTeams as $team): ?>
+    <div class="card my-3">
+        <div class="card-header">
+            <h5><?= $team->getTeamName() ?></h5>
+        </div>
+        <div class="card-body">
+            <?php $users = $view->developerTeamObject->getDevelopers($team->getTeamName()) ?>
+            <?php $userIndex = 0 ?>
+            <?php foreach ($users as $user): ?>
+            <?php if ($view->unavailabilityObject->checkAvailability($user->getUsername(), $view->startDate, $view->endDate)): ?>
+                <div class="dev draggableDevelopers" id="devCard<?= ++$userIndex ?>">
+                    <p class="card-text" id="devCardText<?= $userIndex ?>">
+                        <span id="devCardName"><?= $user->getUsername() ?></span>
+                        <!-- Button here -->
+                    </p>
+                </div>
+            <?php endif ;?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endforeach; ?>

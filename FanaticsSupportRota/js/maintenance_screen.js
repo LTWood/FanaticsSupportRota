@@ -36,13 +36,16 @@ function removeDeveloperFromSupport(index)
 {
     // Get name from current developer in slot
     var name = $("#rotaSlot" + index)[0].children[0].children[0].innerText.trim();
-
+    // var name = $("#rotaSlot" + index)[0].children[0];
     // Find the dev card with the username and display it again
-    $(".draggableDevelopers:contains(" + name + ")")[0].style.display = "block";
+    if ($(".draggableDevelopers:contains(" + name + ")").length) {
+        $(".draggableDevelopers:contains(" + name + ")")[0].style.display = "block";
+    }
     // // Set the rota slot to red, don't show trash button, say developer required
     $("#rotaSlot" + index)[0].style.backgroundColor = "red";
     $("#rotaSlot" + index)[0].children[0].children[0].innerText = "** Developer Required **";
     $("#rotaSlot" + index)[0].children[0].children[1].style.display = "none";
+    // console.log($("#rotaSlot" + index)[0]);
 }
 
 function updateRota() {
@@ -55,12 +58,9 @@ function updateRota() {
         dev_array.push(date_start);
         dev_array.push(dev1);
         dev_array.push(dev2);
-        //console.log(date_start);
-        // console.log(dev1);
-        // console.log(dev2);
         modified_rota[index] = dev_array;
     });
-    //console.log(modified_rota);
+    console.log(modified_rota);
     $.ajax({
         url: "../updateRota.php",
         type: "post",
@@ -69,5 +69,11 @@ function updateRota() {
             console.log("Success");
             location.reload();
         }
-    })
+    });
+}
+
+function loaddevs(dates) {
+    $("#developerTeamColumn").load("getDevelopmentTeamsUnavailable.php", { date: dates }, function() {
+        init();
+    });
 }

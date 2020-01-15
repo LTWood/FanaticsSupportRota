@@ -2,7 +2,7 @@
 
 class User
 {
-    private $username, $DevTeam;
+    private $username, $DevTeam, $experience;
 
     /*
      * Sets value for a single user from a single database row given
@@ -11,10 +11,11 @@ class User
     {
         $this->username = $row["username"];
         $this->DevTeam = $row["development_team"];
+        $this->experience = $row["experience"];
     }
 
     /*
-     * 2 accessor methods, to retrieve fields
+     * 3 accessor methods, to retrieve fields
      */
     public function getUsername()
     {
@@ -24,5 +25,10 @@ class User
     public function getDevTeam()
     {
         return $this->DevTeam;
+    }
+
+    public function getExperience()
+    {
+        return $this->experience;
     }
 }
