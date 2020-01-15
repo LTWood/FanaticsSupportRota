@@ -71,6 +71,7 @@ class GenerateRota
             while($valid == false){
                 $valid = true;
 
+                //If theres a junior dev not matched with a senior then generate two new devs
                 $junior = false;
                 while(!$junior) {
                     $junior = true;
@@ -95,7 +96,7 @@ class GenerateRota
 
                     $dev1 = $users[$user1];
                     $dev2 = $users[$user2];
-
+                    //Compares the experience of each dev (Junior should be paired with a Senior
                     if(($dev1->getExperience() == 'Junior')&&($dev2->getExperience() != 'Senior')){
                         $junior = false;
                     }
