@@ -62,6 +62,7 @@ class GenerateRota
 
         //Grabs all the current devs
         $users = $usersObject->getAllUsers();
+
         //Generates random pairs of devs
         $devPairs = [];
         for ($i = 0; $i < $weeks; $i += 2) {
@@ -70,35 +71,57 @@ class GenerateRota
             while($valid == false){
                 $valid = true;
 
-                //Generating a random dev pair ###Change this if want to match a senior with a junior dev! ###
-                $v1 = mt_rand(0, count($users) - 1);
-                $v2 = mt_rand(0, count($users) - 1);
-                while ($v2 == $v1) { //If the same two people match then select another dev
-                    $v2 = mt_rand(0, count($users) - 1);
+                //If theres a junior dev not matched with a senior then generate two new devs
+                $junior = false;
+                while(!$junior) {
+                    $junior = true;
+
+                    //Add while loop that repeats selection of users if theyre not from different dev teams
+                    $difTeams = false;
+                    while(!$difTeams) {
+                        $difTeams = true;
+
+                        $user1 = mt_rand(0, count($users) - 1);
+                        $user2 = mt_rand(0, count($users) - 1);
+                        while ($user2 == $user1) { //If the same two people match then select another dev
+                            $user2 = mt_rand(0, count($users) - 1);
+                        }
+
+                        $team1 = $users[$user1]->getDevTeam();
+                        $team2 = $users[$user2]->getDevTeam();
+                        if($team1 == $team2) {
+                            $difTeams = false;
+                        }
+                    }
+
+                    $dev1 = $users[$user1];
+                    $dev2 = $users[$user2];
+                    //Compares the experience of each dev (Junior should be paired with a Senior
+                    if(($dev1->getExperience() == 'Junior')&&($dev2->getExperience() != 'Senior')){
+                        $junior = false;
+                    }
+                    if(($dev2->getExperience() == 'Junior')&&($dev1->getExperience() != 'Senior')){
+                        $junior = false;
+                    }
+
                 }
-                // ### ###
-
-                $dev1 = $users[$v1]->getUsername(); //Get usernames for both devs
-                $dev2 = $users[$v2]->getUsername();
-
-
 
                 //Checking availability of devs for the support team they will be assigned to
-                if(!$unavailabilityObject->checkAvailability($dev1, $dates[$i], $dates[$i+1])){
+                if(!$unavailabilityObject->checkAvailability($dev1->getUsername(), $dates[$i], $dates[$i+1])){
                     $valid = false;
                 }
-                if(!$unavailabilityObject->checkAvailability($dev2, $dates[$i], $dates[$i+1])){
+                if(!$unavailabilityObject->checkAvailability($dev2->getUsername(), $dates[$i], $dates[$i+1])){
                     $valid = false;
                 }
             }
-            array_push($devPairs, $dev1); //add devs to array of devs
-            array_push($devPairs, $dev2);
+            array_push($devPairs, $dev1->getUsername()); //add devs to array of devs
+            array_push($devPairs, $dev2->getUsername());
         }
 
         //Calculating amount of consecutive support team assignments for each dev.
         $consecutiveDevs = [];
         for ($i = 0; $i < count($devPairs); $i++) {
-            $consecutiveDevs[$devPairs[$i]] = 1;
+            $consecutiveDevs[$devPairs[$i]] = 0;
         }
 
         //Array to loop through entire selected devs - If a consecutive match is found increment consecutive counter for that dev
@@ -117,7 +140,7 @@ class GenerateRota
         //Checking that no dev is over the limit for consecutive support team assignments
         $underLimit = true;
         for ($i = 0; $i < count($devPairs); $i++) {
-            if($consecutiveDevs[$devPairs[$i]] >= $consecutiveLimit){
+            if($consecutiveDevs[$devPairs[$i]] > $consecutiveLimit){
                 $underLimit = false;
             }
         }
