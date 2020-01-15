@@ -63,6 +63,13 @@ class SupportTeamDataSet
         $statement->execute();
     }
 
+    //Removes all support teams that are older than a specific date
+    public function removeOldSupportTeam($date_end){
+        $sqlQuery = 'DELETE FROM support_team WHERE date_end < ?';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$date_end]);
+    }
+
     //Adds a developer to a specific team if there is a position available
     public function addDevToSupportTeam($developer, $id){
         $sqlQuery = 'SELECT developer_1, developer_2 FROM support_team WHERE id = ?';
