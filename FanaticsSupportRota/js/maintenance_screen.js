@@ -55,9 +55,6 @@ function updateRota() {
         dev_array.push(date_start);
         dev_array.push(dev1);
         dev_array.push(dev2);
-        //console.log(date_start);
-        // console.log(dev1);
-        // console.log(dev2);
         modified_rota[index] = dev_array;
     });
     console.log(modified_rota);
