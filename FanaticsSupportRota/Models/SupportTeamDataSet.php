@@ -34,6 +34,14 @@ class SupportTeamDataSet
         return $dataSet; //return array of support teams
     }
 
+    public function getSpecificTeam($date_start)
+    {
+        $sqlQuery = 'SELECT * FROM support_team WHERE date_start = ? ';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$date_start]);
+        return new SupportTeam($statement->fetch());
+    }
+
     //Creates a new support team from user input
     public function addSupportTeam($date_start, $date_end, $developer_1, $developer_2){
         $sqlQuery = 'INSERT INTO support_team (date_start, date_end, developer_1, developer_2) VALUES (?,?,?,?)';
@@ -53,6 +61,13 @@ class SupportTeamDataSet
         $sqlQuery = 'DELETE FROM support_team WHERE date_start >= "'.$date_start.'" AND date_end <= "'.$date_end.'"';
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
+    }
+
+    //Removes all support teams that are older than a specific date
+    public function removeOldSupportTeam($date_end){
+        $sqlQuery = 'DELETE FROM support_team WHERE date_end < ?';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$date_end]);
     }
 
     //Adds a developer to a specific team if there is a position available

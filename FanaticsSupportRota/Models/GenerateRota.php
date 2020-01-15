@@ -4,6 +4,7 @@ require_once ('Models/Database.php');
 require_once ('Models/UserDataSet.php');
 require_once ('Models/SupportTeamDataSet.php');
 require_once ('Models/UnavailabilityDataSet.php');
+require_once ('Models/AuditLogDataSet.php');
 
 class GenerateRota
 {
@@ -44,6 +45,10 @@ class GenerateRota
             $supportTeamObject->addSupportTeam($dates[$datesIndex], $dates[$datesIndex + 1], $devPairs[$datesIndex], $devPairs[$datesIndex+1]); //Creates the support team
             $datesIndex = $datesIndex + 2;
         }
+        //Add a audit message for the generation
+        $auditLogObject = new AuditLogDataSet();
+        $message = "".$_SESSION['user']." Generated a new support rota for ".$weeks." weeks at ".date("H:i:s")." On ".date("d-m-Y");
+        $auditLogObject->addAuditLog($message);
     }
 
     //Method for removing all support teams that will overlap with the rotas support teams
