@@ -36,7 +36,10 @@
                     <a class="nav-link" href="../../maintenance.php">Maintenance</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../createAcc.php">Create Account</a>
+                    <a class="nav-link" href="../../userManagement.php">User Management</a>
+                </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="../../teamManagement.php">Team Management</a>
                 </li>
                 <?php endif; ?>
                 <?php if (isset($_SESSION["user"])) : ?>
@@ -50,7 +53,7 @@
             </ul>
         </div>
         <?php if(isset($_SESSION["user"])): ?>
-        <span> Logged In:<?= $_SESSION['user']?></span>
+            <span id="loggedIn"><b>Logged In: </b><?= $_SESSION['user']?></span>
         <form method="post" action = "index.php">
             <button class="btn btn-warning" type="submit" name="logout" >Log Out</button>
         </form>
