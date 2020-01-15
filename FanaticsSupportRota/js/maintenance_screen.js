@@ -50,7 +50,7 @@ function removeDeveloperFromSupport(index)
 
 function updateRota() {
     var modified_rota = {};
-    $("#supportTeamColumn").children("#supportTeam").each(function(index) {
+    $("#supportTeamColumn").children("#supportTeams").children("#supportTeam").each(function(index) {
         var date_start = $(this).find("#startDate")[0].innerText;
         var dev1 = $(this).find(".card-body")[0].children[0].innerText;
         var dev2 = $(this).find(".card-body")[0].children[1].innerText;
@@ -60,9 +60,8 @@ function updateRota() {
         dev_array.push(dev2);
         modified_rota[index] = dev_array;
     });
-    console.log(modified_rota);
     $.ajax({
-        url: "../updateRota.php",
+        url: "updateRota.php",
         type: "post",
         data: {rota: modified_rota},
         success: function(){
