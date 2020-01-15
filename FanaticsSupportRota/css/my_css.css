@@ -121,6 +121,13 @@ h4 {
     margin-top: 20px;
 }
 
+#unavailabilityList
+{
+    width:380px;
+    height:275px;
+    overflow: auto;
+}
+
 p.b {
     text-align: right;
 }

@@ -23,7 +23,7 @@ class UserDataSet
      */
     public function getAllUsers()
     {
-        $sqlQuery = "SELECT username, development_team, experience FROM users WHERE type = 'developer'";
+        $sqlQuery = "SELECT username, development_team, type, experience FROM users WHERE type = 'developer'";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
         $dataSet = [];
@@ -64,14 +64,14 @@ class UserDataSet
      *               $team - The team user is assigned too on creation
      * @return : A message indicating the success of the operation
      */
-    public function createUser($username, $team)
+    public function createUser($username, $team, $type, $experience)
     {
         $password = $this->generatePassword();
         if ($this->checkUsername($username))
         {
-            $sqlQuery = "INSERT INTO users (username, password, development_team) VALUES (?,?,?)";
+            $sqlQuery = "INSERT INTO users (username, password, development_team, type, experience) VALUES (?,?,?,?,?)";
             $statement = $this->_dbHandle->prepare($sqlQuery);
-            $statement->execute([$username, password_hash($password, PASSWORD_DEFAULT), $team]);
+            $statement->execute([$username, password_hash($password, PASSWORD_DEFAULT), $team, $type, $experience]);
             return "User added; Password is: " .$password;
         }
         else

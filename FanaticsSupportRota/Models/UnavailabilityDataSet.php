@@ -54,4 +54,17 @@ class UnavailabilityDataSet
             return true;
         }
     }
+
+    public function getUnavailability($username)
+    {
+        $sqlQuery = "SELECT * FROM unavailability WHERE username = ?";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$username]);
+        $dataSet =[];
+        while($row = $statement->fetch())
+        {
+            $dataSet[] = new Unavailability($row);
+        }
+        return $dataSet;
+    }
 }
