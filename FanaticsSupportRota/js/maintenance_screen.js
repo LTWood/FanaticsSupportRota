@@ -73,7 +73,7 @@ function updateRota() {
 }
 
 function loaddevs(dates) {
-    $("#developerTeamColumn").load("testing.php", { date: dates }, function() {
+    $("#developerTeamColumn").load("getDevelopmentTeamsUnavailable.php", { date: dates }, function() {
         init();
     });
 }
