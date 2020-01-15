@@ -1,20 +1,11 @@
 <?php require_once('template/header.phtml'); ?>
 
 
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd", minDate: 0});
-        } );
-    </script>
-    <script>
-        $(function() {
-            $( "#datepicker2" ).datepicker({dateFormat: "yy-mm-dd", minDate: 0});
-        } );
-    </script>
+
     <div class="container">
         <header class="header">Account Management</header>
         <div class="row createAcc">
-            <form class="col-xl-6" method="post" action="../createAcc.php">
+            <form class="col" method="post" action="../createAcc.php">
                 <h4>Unavailability</h4>
                 <div class="form-group">
                     <label for="listView">Select User</label>
@@ -34,7 +25,38 @@
                 </div>
                 <button type="submit" class="btn btn-success" name="unavailabilitySubmit">Submit</button>
             </form>
-            <form class="col-xl-6" method="post" action="../createAcc.php">
+            <form class="col" method="post" action="../createAcc.php">
+                <div class="form-group">
+                    <label for="listView">Select User</label>
+                    <select name="userSchedule" id = "listView" onchange="this.form.submit()">
+                        <?php foreach ($view->users as $user) :?>
+                            <option value = "<?= $user->getUsername()?>" <?php if(isset($view->userSchedule) && $view->userSchedule == $user->getUsername()) echo "selected = '" . $user->getUsername() . "''"?>> <?= $user->getUsername() ?></option>
+                        <?php endforeach ; ?>
+                    </select>
+                </div>
+            </form>
+            <div class = col id = "unavailabilityList">
+                <?php if(isset($view->unavailability)) :?>
+                    <?php foreach ($view->unavailability as $UnavailabilityData) : ?>
+                        <div class="card my-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <?= date('d-m-Y',strtotime($UnavailabilityData->getDateStart())); ?> ---
+                                    <?= date('d-m-Y',strtotime($UnavailabilityData->getDateEnd())); ?>
+                                </h5>
+                            </div>
+                            <div>
+                                <form method="post" action="../createAcc.php">
+                                    <button class="btn-primary" name="delete" value="<?=$UnavailabilityData->getId()?>">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="row createTeam">
+            <form class="col" method="post" action="../createAcc.php">
                 <h4>Create Account</h4>
                 <div class="form-group">
                     <label for="exampleInputUsername">Username</label>
@@ -42,23 +64,41 @@
                     <small class="form-text text-muted">We'll never share your details with anyone else.</small>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputTeam">Team</label>
-                    <input type="text" class="form-control" id="exampleInputTeam" placeholder="Team" name="team">
+                    <label for="listView">Select Team</label>
+                    <select name="selectedTeam" id = "listView">
+                        <?php foreach ($view->teams as $team) :?>
+                            <option value = "<?= $team->getTeamName()?>"> <?= $team->getTeamName() ?></option>
+                        <?php endforeach ; ?>
+                    </select>
                 </div>
-                <div class="dropright">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        Dev Type
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Admin</a>
-                        <a class="dropdown-item" href="#">Developer</a>
-                    </div>
+                <div class="form-group">
+                    <label for="listView">Select Developer Type</label>
+                    <select name="selectedDev" id = "listView">
+                        <option value ="Admin">Admin</option>
+                        <option value ="Developer">Developer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="listView">Select Developer Experience</label>
+                    <select name="selectedExp" id = "listView">
+                        <option value ="Junior">Junior</option>
+                        <option value ="Experienced">Experienced</option>
+                        <option value ="Senior">Senior</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-success" name="createUserSubmit">Submit</button>
             </form>
-            <?php if(isset($view->message)) : ?>
-                <div class="alert alert-dark" role="alert"><?= $view->message ?></div>
-            <?php endif; ?>
+            <form class="col" method="post" action="../createAcc.php">
+                <h4>Create Team</h4>
+                <div class="form-group">
+                    <label for="inputTeamName">Team Name</label>
+                    <input type="text" class="form-control" id="inputTeamName" placeholder="Team Name" name="teamName">
+                </div>
+                <button type="submit" class="btn btn-success" name="createTeamSubmit">Create Team</button>
+            </form>
         </div>
+        <?php if(isset($view->message)) : ?>
+            <div class="alert alert-dark" role="alert"><?= $view->message ?></div>
+        <?php endif; ?>
     </div>
 <?php require_once('template/footer.phtml'); ?>

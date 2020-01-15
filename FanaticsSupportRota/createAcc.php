@@ -5,6 +5,7 @@ $view = new stdClass();
 $view->pageTitle = 'Create Account';
 
 require_once ('Models/UserDataSet.php');
+require_once ('Models/DevelopmentTeamDataSet.php');
 require_once ("Models/UnavailabilityDataSet.php");
 
 /*
@@ -12,20 +13,31 @@ require_once ("Models/UnavailabilityDataSet.php");
  * createUser from the userDataSet.
  */
 
-$getUsers = new userDataSet;
-$view->users = $getUsers->getAllUsers();
-
 if (isset($_POST['createUserSubmit']))
 {
-    if (isset($_POST['username']) && isset($_POST['team']))
+    if (isset($_POST['username']))
     {
         $login = new UserDataSet();
-        $view->message = $login->createUser($_POST['username'], $_POST['team']);
+        $view->message = $login->createUser($_POST['username'], $_POST['selectedTeam'], $_POST['selectedDev'], $_POST['selectedExp']);
     }
 }
 if (isset($_POST["logout"])) //Checks to see if the user logs out.
 {
     unset($_SESSION["user"]);
+}
+
+if (isset($_POST["createTeamSubmit"]))
+{
+    if ($_POST["teamName"] == "")
+    {
+        $view->message = "Please enter a valid team name";
+    }
+    else
+        {
+            $addTeam = new DevelopmentTeamDataSet();
+            $addTeam->addDevTeam($_POST["teamName"]);
+            $view->message = "Added team called " . $_POST["teamName"];
+        }
 }
 
 if(isset($_POST["unavailabilitySubmit"]))
@@ -45,5 +57,26 @@ if(isset($_POST["unavailabilitySubmit"]))
             $view->message = "Unavailability updated for " . $_POST["selectedUser"]. $_POST["startDate"] . $_POST["endDate"];
         }
 }
+
+if(isset($_POST["userSchedule"]))
+{
+    $view->userSchedule=$_POST["userSchedule"];
+    $getSchedule = new UnavailabilityDataSet();
+    $view->unavailability = $getSchedule->getUnavailability($_POST["userSchedule"]);
+}
+
+
+if(isset($_POST["delete"]))
+{
+    $deleteUnavailability = new UnavailabilityDataSet();
+    $deleteUnavailability->removeUnavailability($_POST["delete"]);
+}
+
+$getUsers = new UserDataSet();
+$view->users = $getUsers->getAllUsers();
+
+$getTeams = new DevelopmentTeamDataSet();
+$view->teams = $getTeams->getDevelopmentTeams();
+
 
 require_once('Views/createAcc.phtml');

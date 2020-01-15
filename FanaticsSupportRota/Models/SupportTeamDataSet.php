@@ -24,9 +24,9 @@ class SupportTeamDataSet
     public function getSupportTeams($weeks){
         $firstDay = date('Y-m-d', strtotime("monday -1 week"));
         $lastDay = date('Y-m-d', strtotime("sunday ".--$weeks." week"));
-        $sqlQuery = 'SELECT * FROM support_team WHERE date_start >= "'.$firstDay.'" AND date_end <= "'.$lastDay.'" ORDER BY date_start';
+        $sqlQuery = "SELECT * FROM support_team WHERE (date_end > ?) AND (date_start < ?) ORDER BY date_start;";
         $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute();
+        $statement->execute([$firstDay, $lastDay]);
         $dataSet = [];
         while($row = $statement->fetch()){
             $dataSet[] = new SupportTeam($row); //Store DB row in a SupportTeam object that is then stored in an array of support teams
