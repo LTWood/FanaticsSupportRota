@@ -11,11 +11,10 @@ require_once ('Models/GenerateRota.php');
 
 $supportTeamObject = new SupportTeamDataSet();
 
-
 //Generates a new rota for x amount of weeks (starting the beginning of the current week)
 if(isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])){
     $rotaObject = new GenerateRota();
-    $rotaObject->generateRota(8);
+    $rotaObject->generateRota($_POST['noWeeksGen'], 3);
 }
 
 

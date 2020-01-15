@@ -124,3 +124,7 @@ h4 {
 p.b {
     text-align: right;
 }
+
+.bottom-padding{
+    padding-top: 10px;
+}

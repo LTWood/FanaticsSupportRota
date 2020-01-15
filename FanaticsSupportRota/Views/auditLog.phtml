@@ -5,23 +5,20 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="my-3 p-3 bg-white rounded box-shadow">
-<!--                    --><?php //if(isset($_SESSION['user']) && $_SESSION['type'] == "admin"): ?>
+                    <?php if(isset($_SESSION['user']) && $_SESSION['type'] == "admin"): ?>
 
                         <?php foreach ($view->auditLog as $audit) : ?>
                             <div class="card my-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-
-                                    </h5>
-                                    <div class="users text-center">
+                                <div class="card-body bottom-padding" >
+                                    <h3 class="card-title" >
                                         <?php echo $audit->getMessage(); ?>
-                                        <a href="../auditLog.php?Del=<?= $audit->getID() ?>">DEL</a>
-                                    </div>
+                                        <a href="../auditLog.php?Del=<?= $audit->getID() ?>" class="btn btn-danger"><span class="fas fa-trash-alt"></span></a>
+                                    </h3>
                                 </div>
                             </div>
                         <?php endforeach; ?>
 
-<!--                    --><?php //endif; ?>
+                    <?php endif; ?>
 
                 </div>
             </div>

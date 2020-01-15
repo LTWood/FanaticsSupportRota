@@ -34,6 +34,14 @@ class SupportTeamDataSet
         return $dataSet; //return array of support teams
     }
 
+    public function getSpecificTeam($date_start)
+    {
+        $sqlQuery = 'SELECT * FROM support_team WHERE date_start = ? ';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$date_start]);
+        return new SupportTeam($statement->fetch());
+    }
+
     //Creates a new support team from user input
     public function addSupportTeam($date_start, $date_end, $developer_1, $developer_2){
         $sqlQuery = 'INSERT INTO support_team (date_start, date_end, developer_1, developer_2) VALUES (?,?,?,?)';

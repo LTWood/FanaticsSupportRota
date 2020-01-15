@@ -13,11 +13,11 @@ class AuditLogDataSet
     }
 
     //add Audit record to DB
-    public function addAuditLog($auditLog)
+    public function addAuditLog($message)
     {
-        $sqlQuery = 'INSERT INTO audit_log VALUES ("?")';
+        $sqlQuery = 'INSERT INTO audit_log (message) VALUES (?)';
         $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute([$auditLog]);
+        $statement->execute([$message]);
     }
 
     //fetch all the audit logs
