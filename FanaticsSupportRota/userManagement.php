@@ -58,6 +58,8 @@ if(isset($_POST["delete"]))
 {
     $deleteUnavailability = new UnavailabilityDataSet();
     $deleteUnavailability->removeUnavailability($_POST["delete"]);
+    $getSchedule = new UnavailabilityDataSet();
+    $view->unavailability = $getSchedule->getUnavailability($_GET["username"]);
 }
 
 $getUsers = new UserDataSet();
