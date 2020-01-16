@@ -3,14 +3,42 @@
 <div class="container">
     <header class="header">Maintenance Screen</header>
     <div class="row">
+
         <div class="col-xl-6" id="supportTeamColumn">
-            <div class="card">
+            <div class="accordion" id="generateAccordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="false" aria-controls="collapseOne">
+                                <h3 class="mb-0">Generate new rota</h3>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                         data-parent="#generateAccordion">
+                        <div class="card-body">
+                            <form class="card" method="post" action="../maintenance.php">
+                                <div class="card-text">Generate rota for the next
+                                    <input type="text" id="noWeeksInput" name="noWeeksGen" required/>
+                                    weeks
+                                    <input type="submit" class="btn btn-success" name="generateRota" value="Generate"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card my-3">
                 <div class="card-text">
                     <label for="from">From</label>
-                    <input type="text" id="from" name="from">
-                    <hr>
+                    <input type="text" id="from" name="from" readonly="true">
+                    <br>
                     <label for="to">to</label>
-                    <input type="text" id="to" name="to">
+                    <input type="text" id="to" name="to" readonly="true">
+                    <br>
+                    <button onclick="updateSupportTeamList()">View support teams</button>
                 </div>
             </div>
             <div id="supportTeams">
@@ -29,28 +57,44 @@
                         <div class="card-body">
                             <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
                                 <p class="card-text" id="originalDev<?= $index ?>">
-                                    <span id="originalDeveloperName"><?= $team->getDeveloper1() ?></span>
-                                    <button class='trashButtonOriginalDev'
-                                            onclick='removeDeveloperFromSupport(<?= $index ?>)'><i
-                                                class='fas fa-trash-alt'></i></button>
-                                    <?php if (!$view->unavailabilityObject->checkAvailability($team->getDeveloper1(), $team->getDateStart(), $team->getDateEnd())): ?>
-                                        <script>
-                                            document.getElementById("rotaSlot" + <?= $index ?>).style.backgroundColor = "red";
-                                        </script>
-                                    <?php endif; ?>
-                                </p>
-                            </div>
-                            <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
-                                <p class="card-text" id="originalDev<?= $index ?>">
-                                    <span id="originalDeveloperName"><?= $team->getDeveloper2() ?></span>
-                                    <button class='trashButtonOriginalDev'
-                                            onclick='removeDeveloperFromSupport(<?= $index ?>)'><i
-                                                class='fas fa-trash-alt'></i></button>
+                                    <?php if ($team->getDeveloper1() == ""): ?>
+                                        <span id="originalDeveloperName">** Developer Required **</span>
+                                        <span></span> <!-- DO NOT REMOVE, IT WILL MESS UP THE JS -->
+                                        <script>document.getElementById("rotaSlot" + <?= $index ?>).style.background = "red"</script>
+                                    <?php else: ?>
+                                        <span id="originalDeveloperName"><?= $team->getDeveloper1() ?></span>
+                                        <button class='trashButtonOriginalDev'
+                                                onclick='removeDeveloperFromSupport(<?= $index ?>)'><i
+                                                class='fas fa-trash-alt'></i>
+                                        </button>
                                     <?php if (!$view->unavailabilityObject->checkAvailability($team->getDeveloper2(), $team->getDateStart(), $team->getDateEnd())): ?>
                                         <script>
                                             document.getElementById("rotaSlot" + <?= $index ?>).style.backgroundColor = "red";
                                         </script>
                                     <?php endif; ?>
+
+                                    <?php endif ?>
+                                </p>
+                            </div>
+                            <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
+                                <p class="card-text" id="originalDev<?= $index ?>">
+                                    <?php if ($team->getDeveloper2() == ""): ?>
+                                        <span id="originalDeveloperName">** Developer Required **</span>
+                                        <span></span> <!-- DO NOT REMOVE, IT WILL MESS UP THE JS -->
+                                        <script>document.getElementById("rotaSlot" + <?= $index ?>).style.background = "red"</script>
+                                    <?php else: ?>
+                                        <span id="originalDeveloperName"><?= $team->getDeveloper2() ?></span>
+                                        <button class='trashButtonOriginalDev'
+                                                onclick='removeDeveloperFromSupport(<?= $index ?>)'><i
+                                                    class='fas fa-trash-alt'></i>
+                                        </button>
+                                        <?php if (!$view->unavailabilityObject->checkAvailability($team->getDeveloper2(), $team->getDateStart(), $team->getDateEnd())): ?>
+                                        <script>
+                                            document.getElementById("rotaSlot" + <?= $index ?>).style.backgroundColor = "red";
+                                        </script>
+                                        <?php endif; ?>
+
+                                    <?php endif ?>
                                 </p>
                             </div>
                         </div>

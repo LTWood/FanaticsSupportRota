@@ -58,7 +58,7 @@ class DevelopmentTeamDataSet
 
     //Get all developers for a specific team
     public function getDevelopers($teamName){
-        $sqlQuery = 'SELECT username, development_team, experience FROM users WHERE development_team = ?';
+        $sqlQuery = 'SELECT username, development_team, experience, type FROM users WHERE development_team = ?';
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$teamName]);
         $dataSet = [];

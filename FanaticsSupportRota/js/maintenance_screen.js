@@ -1,52 +1,38 @@
-$( init );
+$(init);
 
 var modified_rota = {};
 
 function init() {
-    $('.draggableDevelopers').draggable( {
+    $('.draggableDevelopers').draggable({
         containment: 'document',
         cursor: 'move',
         revert: true,
         stack: '.col-xl-6',
-    } );
+    });
 
-    $('.droppableRotaSlot').droppable( {
+    $('.droppableRotaSlot').droppable({
         accept: '.draggableDevelopers',
         hoverClass: 'hovered',
         drop: handleDeveloperRotaDrop
-    } );
+    });
 
-    $(function() {
-        var dateFormat = "dd-mm-yyyy",
-            from = $("#from")
-                .datepicker({
-                    showButtonPanel: true,
-                    changeMonth: true,
-                    changeYear: true
-                })
-                .on( "change", function() {
-                    to.datepicker( "option", "minDate", getDate( this ) );
-                }),
-            to = $( "#to" ).datepicker({
-                showButtonPanel: true,
-                changeMonth: true,
-                changeYear: true
-            })
-                .on( "change", function() {
-                    from.datepicker( "option", "maxDate", getDate( this ) );
-                });
+    $("#from").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        showWeek: true,
+        firstDay: 1
+    });
 
-        function getDate( element ) {
-            var date;
-            try {
-                date = $.datepicker.parseDate( dateFormat, element.value );
-            } catch( error ) {
-                date = null;
-            }
-
-            return date;
-        }
-    } );
+    $("#to").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        showWeek: true,
+        firstDay: 1
+    });
 }
 
 function handleDeveloperRotaDrop(event, ui) {
@@ -57,6 +43,7 @@ function handleDeveloperRotaDrop(event, ui) {
         ui.draggable.css("display", "none");
         // Sets rota slot to display devs name
         $(this)[0].children[0].children[0].innerText = ui.draggable.find("#devCardName")[0].innerText;
+
         // Shows trash button
         $(this)[0].children[0].children[1].style.display = "inline";
         // Change background colour to show it has been manually modified
@@ -64,8 +51,7 @@ function handleDeveloperRotaDrop(event, ui) {
     }
 }
 
-function removeDeveloperFromSupport(index)
-{
+function removeDeveloperFromSupport(index) {
     // Get name from current developer in slot
     var name = $("#rotaSlot" + index)[0].children[0].children[0].innerText.trim();
     // var name = $("#rotaSlot" + index)[0].children[0];
@@ -82,7 +68,7 @@ function removeDeveloperFromSupport(index)
 
 function updateRota() {
     var modified_rota = {};
-    $("#supportTeamColumn").children("#supportTeams").children("#supportTeam").each(function(index) {
+    $("#supportTeamColumn").children("#supportTeams").children("#supportTeam").each(function (index) {
         var date_start = $(this).find("#startDate")[0].innerText;
         var dev1 = $(this).find(".card-body")[0].children[0].innerText;
         var dev2 = $(this).find(".card-body")[0].children[1].innerText;
@@ -96,7 +82,7 @@ function updateRota() {
         url: "updateRota.php",
         type: "post",
         data: {rota: modified_rota},
-        success: function(){
+        success: function () {
             console.log("Success");
             location.reload();
         }
@@ -104,7 +90,16 @@ function updateRota() {
 }
 
 function loaddevs(dates) {
-    $("#developerTeamColumn").load("getDevelopmentTeamsUnavailable.php", { date: dates }, function() {
+    $("#developerTeamColumn").load("getDevelopmentTeamsUnavailable.php", {date: dates}, function () {
         init();
     });
+}
+
+function updateSupportTeamList() {
+    var startDate = $("#from")[0].value;
+    var endDate = $("#to")[0].value;
+    $("#supportTeams").load("getSupportTeamsInDateRange.php", {start: startDate, end: endDate}, function() {
+        init();
+        console.log("Success");
+    })
 }
