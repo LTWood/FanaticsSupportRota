@@ -18,6 +18,16 @@ $unavailabilityObject = new UnavailabilityDataSet();
 $unavailabilityObject->removeOldRecords(date('Y-m-d', strtotime("monday -1 week")));
 $supportTeamObject->removeOldSupportTeam(date('Y-m-d', strtotime("monday -1 week")));
 
+
+//Checking if there is a latest support team
+$latest = $supportTeamObject->getLatestSupportTeam();
+if($latest == null){
+    echo "No entries";
+}else{
+    var_dump($latest);
+}
+
+
 //Generates a new rota for x amount of weeks (starting the beginning of the current week)
 if (isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])) {
     $rotaObject = new GenerateRota();
