@@ -1,0 +1,42 @@
+<?php $index = 0 ?>
+<?php foreach ($view->supportTeams as $team): ?>
+    <div class="card my-3" id="supportTeam">
+        <div class="card-header" id="dates">
+            <h5><span id="startDate"><?= date("d/m/Y", strtotime($team->getDateStart())) ?></span>
+                ---
+                <span id="endDate"><?= date("d/m/Y", strtotime($team->getDateEnd())) ?></span>
+            </h5>
+            <button onclick="loaddevs(['<?= $team->getDateStart() ?>', '<?= $team->getDateEnd() ?>'])">
+                Get available devs
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
+                <p class="card-text" id="originalDev<?= $index ?>">
+                    <span id="originalDeveloperName"><?= $team->getDeveloper1() ?></span>
+                    <button class='trashButtonOriginalDev'
+                            onclick='removeDeveloperFromSupport(<?= $index ?>)'><i
+                            class='fas fa-trash-alt'></i></button>
+                    <?php if (!$view->unavailabilityObject->checkAvailability($team->getDeveloper1(), $team->getDateStart(), $team->getDateEnd())): ?>
+                        <script>
+                            document.getElementById("rotaSlot" + <?= $index ?>).style.backgroundColor = "red";
+                        </script>
+                    <?php endif; ?>
+                </p>
+            </div>
+            <div class="dev droppableRotaSlot" id="rotaSlot<?= ++$index ?>">
+                <p class="card-text" id="originalDev<?= $index ?>">
+                    <span id="originalDeveloperName"><?= $team->getDeveloper2() ?></span>
+                    <button class='trashButtonOriginalDev'
+                            onclick='removeDeveloperFromSupport(<?= $index ?>)'><i
+                            class='fas fa-trash-alt'></i></button>
+                    <?php if (!$view->unavailabilityObject->checkAvailability($team->getDeveloper2(), $team->getDateStart(), $team->getDateEnd())): ?>
+                        <script>
+                            document.getElementById("rotaSlot" + <?= $index ?>).style.backgroundColor = "red";
+                        </script>
+                    <?php endif; ?>
+                </p>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>

@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-text"><p>Teams for <?= $view->startDate ?> --- <?= $view->endDate ?></p>
+    <div class="card-header"><h5>Teams for <?= date("d/m/Y", strtotime($view->startDate)) ?> --- <?= date("d/m/Y", strtotime($view->endDate)) ?></h5>
     </div>
 </div>
 <?php foreach ($view->developerTeams as $team): ?>
@@ -11,14 +11,15 @@
             <?php $users = $view->developerTeamObject->getDevelopers($team->getTeamName()) ?>
             <?php $userIndex = 0 ?>
             <?php foreach ($users as $user): ?>
-            <?php if ($view->unavailabilityObject->checkAvailability($user->getUsername(), $view->startDate, $view->endDate)): ?>
+            <!-- Check if the user is available for the 2 weeks, and also check if the user is not an admin -->
+            <?php if (($view->unavailabilityObject->checkAvailability($user->getUsername(), $view->startDate, $view->endDate)) && (strtolower($user->getType()) != "admin")): ?>
                 <div class="dev draggableDevelopers" id="devCard<?= ++$userIndex ?>">
                     <p class="card-text" id="devCardText<?= $userIndex ?>">
                         <span id="devCardName"><?= $user->getUsername() ?></span>
                         <!-- Button here -->
                     </p>
                 </div>
-            <?php endif ;?>
+            <?php endif;?>
             <?php endforeach; ?>
         </div>
     </div>
