@@ -1,3 +1,4 @@
+<?php if(isset($_SESSION["user"])){?>
 <?php require('template/header.phtml') ?>
     <div class="container">
         <header class="header">Your Support Team Dates</header>
@@ -9,7 +10,7 @@
                     <?php foreach ($view->rota as $rota) : ?>
                         <div class="card my-3">
                             <div class="card-body">
-                                <h5 class="card-title"><?=$rota->getDateStart()?> --- <?=$rota->getDateEnd()?></h5>
+                                <h5 class="card-title  card-header"><?=$rota->getDateStart()?> --- <?=$rota->getDateEnd()?></h5>
                                 <div class="users text-center">
                                     <span class="btn btn-primary"><?=$rota->getDeveloper1()?></span>
                                     <span class="btn btn-primary"><?=$rota->getDeveloper2()?></span>
@@ -22,4 +23,4 @@
         </div>
     </div>
     </body>
-<?php require('template/footer.phtml') ?>
+<?php require('template/footer.phtml'); }?>

@@ -1,4 +1,5 @@
-<?php require_once('template/header.phtml'); ?>
+<?php if(isset($_SESSION["user"]) && $_SESSION["type"] == "admin"){?>
+    <?php require_once('template/header.phtml'); ?>
 
     <div class="container">
         <header class="header">Audit Log</header>
@@ -26,4 +27,4 @@
     </div>
     </body>
 
-<?php require_once('template/footer.phtml'); ?>
+<?php require_once('template/footer.phtml'); }?>
