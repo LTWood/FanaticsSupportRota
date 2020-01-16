@@ -129,4 +129,16 @@ class UserDataSet
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$password, $username]);
     }
+
+    public function getUserByTeam ($team){
+        $sqlquery = "SELECT username FROM users WHERE development_team = ?";
+        $statement = $this->_dbHandle->prepare($sqlquery);
+        $statement->execute([$team]);
+        $dataSet = [];
+        while($row = $statement->fetch()){
+            $dataSet[] = new User($row);
+        }
+        return $dataSet;
+
+    }
 }

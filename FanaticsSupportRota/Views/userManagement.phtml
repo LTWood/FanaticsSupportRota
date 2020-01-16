@@ -3,10 +3,10 @@
 
 
     <div class="container">
-        <header class="header">Account Management</header>
+        <header class="header">User Management</header>
         <div class="row createAcc">
-            <form class="col" method="post" action="../createAcc.php">
-                <h4>Unavailability</h4>
+            <form class="col" method="post" action="../userManagement.php">
+                <h4>User Unavailability</h4>
                 <div class="form-group">
                     <label for="listView">Select User</label>
                     <select name="selectedUser" id = "listView">
@@ -35,7 +35,7 @@
                     </select>
                 </div>
             </form>
-            <div class = col id = "unavailabilityList">
+            <div class = "col" id = "unavailabilityList">
                 <?php if(isset($view->unavailability)) :?>
                     <?php foreach ($view->unavailability as $UnavailabilityData) : ?>
                         <div class="card my-3">
@@ -87,14 +87,6 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-success" name="createUserSubmit">Submit</button>
-            </form>
-            <form class="col" method="post" action="../createAcc.php">
-                <h4>Create Team</h4>
-                <div class="form-group">
-                    <label for="inputTeamName">Team Name</label>
-                    <input type="text" class="form-control" id="inputTeamName" placeholder="Team Name" name="teamName">
-                </div>
-                <button type="submit" class="btn btn-success" name="createTeamSubmit">Create Team</button>
             </form>
         </div>
         <?php if(isset($view->message)) : ?>

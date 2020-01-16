@@ -73,4 +73,16 @@ class UnavailabilityDataSet
         }
         return $dataSet;
     }
+
+    public function getTeamUnavailability($team){
+        $sqlQuery = "SELECT * FROM unavailability, users WHERE unavailability.username = users.username AND users.development_team = ? ";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$team]);
+        $dataSet =[];
+        while($row = $statement->fetch())
+        {
+            $dataSet[] = new Unavailability($row);
+        }
+        return $dataSet;
+    }
 }

@@ -26,19 +26,6 @@ if (isset($_POST["logout"])) //Checks to see if the user logs out.
     unset($_SESSION["user"]);
 }
 
-if (isset($_POST["createTeamSubmit"]))
-{
-    if ($_POST["teamName"] == "")
-    {
-        $view->message = "Please enter a valid team name";
-    }
-    else
-        {
-            $addTeam = new DevelopmentTeamDataSet();
-            $addTeam->addDevTeam($_POST["teamName"]);
-            $view->message = "Added team called " . $_POST["teamName"];
-        }
-}
 
 if(isset($_POST["unavailabilitySubmit"]))
 {
@@ -56,7 +43,7 @@ if(isset($_POST["unavailabilitySubmit"]))
             $startDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['startDate'])));
             $endDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['endDate'])));
             $addUnavailability->addUnavailability($_POST["selectedUser"], $startDate, $endDate);
-            $view->message = "Unavailability updated for " . $_POST["selectedUser"]. $startDate . $endDate;
+            $view->message = "Unavailability updated for " . $_POST["selectedUser"] . " - " . $_POST["startDate"] . "---" . $_POST["endDate"];
         }
 }
 
@@ -80,4 +67,4 @@ $getTeams = new DevelopmentTeamDataSet();
 $view->teams = $getTeams->getDevelopmentTeams();
 
 
-require_once('Views/createAcc.phtml');
+require_once('Views/userManagement.phtml');
