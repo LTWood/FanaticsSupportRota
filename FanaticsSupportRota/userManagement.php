@@ -40,7 +40,9 @@ if(isset($_POST["unavailabilitySubmit"]))
     else
         {
             $addUnavailability = new UnavailabilityDataSet();
-            $addUnavailability->addUnavailability($_POST["selectedUser"], $_POST["startDate"], $_POST["endDate"]);
+            $startDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['startDate'])));
+            $endDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['endDate'])));
+            $addUnavailability->addUnavailability($_POST["selectedUser"], $startDate, $endDate);
             $view->message = "Unavailability updated for " . $_POST["selectedUser"] . " - " . $_POST["startDate"] . "---" . $_POST["endDate"];
         }
 }

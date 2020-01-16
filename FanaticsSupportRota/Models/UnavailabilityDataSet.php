@@ -37,14 +37,19 @@ class UnavailabilityDataSet
         $statement->execute([$id]);
     }
 
+    //removes unavailability old records
+    public function removeOldRecords($date_start){
+        $sqlQuery = 'DELETE FROM unavailability WHERE date_end < ?';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$date_start]);
+    }
+
+    //Checks the availability of a developer for a specific date range
     public function checkAvailability($username, $date_start, $date_end){
         $sqlQuery = 'SELECT * FROM unavailability WHERE username = ? AND (NOT(? > date_end) && NOT(? < date_start))';
-        //$sqlQuery ="SELECT * FROM unavailability WHERE username = ? AND (date_start <= ? OR date_end >= ?)";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$username, $date_start, $date_end]);
         $dataSet = [];
-//        $row = $statement->fetch();
-//        var_dump($row);
         while ($row = $statement->fetch()) {
             $dataSet[] = new Unavailability($row);
         }
@@ -55,6 +60,7 @@ class UnavailabilityDataSet
         }
     }
 
+    //Grabs the entire unavailability set for a specific dev
     public function getUnavailability($username)
     {
         $sqlQuery = "SELECT * FROM unavailability WHERE username = ?";

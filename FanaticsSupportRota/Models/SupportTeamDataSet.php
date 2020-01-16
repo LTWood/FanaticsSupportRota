@@ -24,14 +24,22 @@ class SupportTeamDataSet
     public function getSupportTeams($weeks){
         $firstDay = date('Y-m-d', strtotime("monday -1 week"));
         $lastDay = date('Y-m-d', strtotime("sunday ".--$weeks." week"));
-        $sqlQuery = 'SELECT * FROM support_team WHERE date_start >= "'.$firstDay.'" AND date_end <= "'.$lastDay.'" ORDER BY date_start';
+        $sqlQuery = "SELECT * FROM support_team WHERE (date_end > ?) AND (date_start < ?) ORDER BY date_start;";
         $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute();
+        $statement->execute([$firstDay, $lastDay]);
         $dataSet = [];
         while($row = $statement->fetch()){
             $dataSet[] = new SupportTeam($row); //Store DB row in a SupportTeam object that is then stored in an array of support teams
         }
         return $dataSet; //return array of support teams
+    }
+
+    public function getSpecificTeam($date_start)
+    {
+        $sqlQuery = 'SELECT * FROM support_team WHERE date_start = ? ';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$date_start]);
+        return new SupportTeam($statement->fetch());
     }
 
     //Creates a new support team from user input
@@ -53,6 +61,13 @@ class SupportTeamDataSet
         $sqlQuery = 'DELETE FROM support_team WHERE date_start >= "'.$date_start.'" AND date_end <= "'.$date_end.'"';
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
+    }
+
+    //Removes all support teams that are older than a specific date
+    public function removeOldSupportTeam($date_end){
+        $sqlQuery = 'DELETE FROM support_team WHERE date_end < ?';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$date_end]);
     }
 
     //Adds a developer to a specific team if there is a position available
