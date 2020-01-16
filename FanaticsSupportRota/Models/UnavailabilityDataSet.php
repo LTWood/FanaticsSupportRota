@@ -3,7 +3,6 @@
 //Incorporating the 'Database' and 'SupportTeam' classes
 require_once ('Models/Database.php');
 require_once ('Models/Unavailability.php');
-require_once ('Models/AuditLogDataSet.php');
 
 
 /**
@@ -29,10 +28,6 @@ class UnavailabilityDataSet
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$username, $date_start, $date_end]);
 
-        //Add a audit message for when a user is unavailable
-        $auditLogObject = new AuditLogDataSet();
-        $message = "".$_SESSION['user']." marked " .$username. " as unavailable between ".$date_start." and ".$date_end." at ".date("H:i:s")." On ".date("d/m/Y");
-        $auditLogObject->addAuditLog($message);
     }
 
     //removes developer from unavailability record

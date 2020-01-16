@@ -116,12 +116,6 @@ class UserDataSet
         $sqlQuery = "DELETE FROM users WHERE username = ?";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$username]);
-
-        //Add a audit message for when a user is deleted
-        $auditLogObject = new AuditLogDataSet();
-        $message = "".$_SESSION['user']." deleted  account: ".$username." who is part of team at ".date("H:i:s")." On ".date("d/m/Y");
-        $auditLogObject->addAuditLog($message);
-
     }
 
     /*
@@ -160,10 +154,5 @@ class UserDataSet
         $sqlQuery = "UPDATE users SET development_team = ?, experience = ? WHERE username = ?";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$devTeam,$experience, $username]);
-
-        //Add a audit message when a users info is updated
-        $auditLogObject = new AuditLogDataSet();
-        $message = "".$_SESSION['user']." updated account information for ".$username." at ".date("H:i:s")." On ".date("d/m/Y");
-        $auditLogObject->addAuditLog($message);
     }
 }
