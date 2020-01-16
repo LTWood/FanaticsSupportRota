@@ -15,8 +15,8 @@ $supportTeamObject = new SupportTeamDataSet();
 $unavailabilityObject = new UnavailabilityDataSet();
 
 //Removes old support and unavailability records (set to -2 to leave one support team)
-$unavailabilityObject->removeOldRecords(date('Y-m-d', strtotime("monday -1 week")));
-$supportTeamObject->removeOldSupportTeam(date('Y-m-d', strtotime("monday -1 week")));
+//$unavailabilityObject->removeOldRecords(date('Y-m-d', strtotime("monday -1 week")));
+//$supportTeamObject->removeOldSupportTeam(date('Y-m-d', strtotime("monday -1 week")));
 
 //Generates a new rota for x amount of weeks (starting the beginning of the current week)
 if (isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])) {
