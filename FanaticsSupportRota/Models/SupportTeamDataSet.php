@@ -34,6 +34,20 @@ class SupportTeamDataSet
         return $dataSet; //return array of support teams
     }
 
+    // Fetch support teams within the range specified
+    public function getSupportTeamsFromRange($firstDay, $lastDay)
+    {
+        $sqlQuery = "SELECT * FROM support_team WHERE (date_end >= ?) AND (date_start <= ?) ORDER BY date_start";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$firstDay, $lastDay]);
+        $dataSet = [];
+        while ($row = $statement->fetch())
+        {
+            array_push($dataSet, new SupportTeam($row));
+        }
+        return $dataSet; //return array of support teams
+    }
+
     //Grabs the latest support team
     public function getLatestSupportTeam(){
         $sqlQuery = 'SELECT * FROM support_team ORDER BY date_end DESC LIMIT 1';
