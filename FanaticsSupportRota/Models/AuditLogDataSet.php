@@ -34,6 +34,7 @@ class AuditLogDataSet
 
     }
 
+    //Remove an audit record with a specific id
     public function removeAuditLog($id)
     {
         $sqlQuery = 'DELETE FROM audit_log WHERE id = '.$id;
