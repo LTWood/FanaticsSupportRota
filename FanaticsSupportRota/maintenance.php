@@ -18,7 +18,7 @@ if (isset($_POST['viewNoWeeks'])) {
     $view->supportTeams = $supportTeamObject->getSupportTeams($_POST['noWeeksView']);
     $view->noWeeks = $_POST['noWeeksView'];
 } else {
-    $view->supportTeams = $supportTeamObject->getSupportTeams(8);
+    $view->supportTeams = $supportTeamObject->getSupportTeams(30);
     $view->noWeeks = 8;
 }
 

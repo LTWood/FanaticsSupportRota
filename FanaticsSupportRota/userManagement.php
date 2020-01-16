@@ -12,6 +12,8 @@ require_once ("Models/UnavailabilityDataSet.php");
  * Checks to see if the submit button has been pressed. If it has, and both team and username are set, it calls
  * createUser from the userDataSet.
  */
+$users = new UserDataSet();
+$getTeams = new DevelopmentTeamDataSet();
 
 if (isset($_POST['createUserSubmit']))
 {
@@ -26,19 +28,6 @@ if (isset($_POST["logout"])) //Checks to see if the user logs out.
     unset($_SESSION["user"]);
 }
 
-if (isset($_POST["createTeamSubmit"]))
-{
-    if ($_POST["teamName"] == "")
-    {
-        $view->message = "Please enter a valid team name";
-    }
-    else
-        {
-            $addTeam = new DevelopmentTeamDataSet();
-            $addTeam->addDevTeam($_POST["teamName"]);
-            $view->message = "Added team called " . $_POST["teamName"];
-        }
-}
 
 if(isset($_POST["unavailabilitySubmit"]))
 {
@@ -55,30 +44,39 @@ if(isset($_POST["unavailabilitySubmit"]))
             $addUnavailability = new UnavailabilityDataSet();
             $startDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['startDate'])));
             $endDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['endDate'])));
-            $addUnavailability->addUnavailability($_POST["selectedUser"], $startDate, $endDate);
-            $view->message = "Unavailability updated for " . $_POST["selectedUser"]. $startDate . $endDate;
+            $addUnavailability->addUnavailability($_GET["username"], $startDate, $endDate);
+            $view->message = "Unavailability updated for " . $_GET["username"] . " - " . $_POST["startDate"] . "---" . $_POST["endDate"];
         }
 }
 
-if(isset($_POST["userSchedule"]))
+
+if(isset($_POST["updateUser"]))
 {
-    $view->userSchedule=$_POST["userSchedule"];
-    $getSchedule = new UnavailabilityDataSet();
-    $view->unavailability = $getSchedule->getUnavailability($_POST["userSchedule"]);
+    $users->updateUserDetails($_POST["updatedDevTeam"],$_POST["updatedDevExp"],$_POST["updateUser"]);
 }
 
+if(isset($_POST["deleteUser"]))
+{
+    $users->deleteUser($_POST["deleteUser"]);
+    $_GET["username"] = "";
+}
 
 if(isset($_POST["delete"]))
 {
     $deleteUnavailability = new UnavailabilityDataSet();
     $deleteUnavailability->removeUnavailability($_POST["delete"]);
+    $getSchedule = new UnavailabilityDataSet();
+    $view->unavailability = $getSchedule->getUnavailability($_GET["username"]);
 }
 
-$getUsers = new UserDataSet();
-$view->users = $getUsers->getAllUsers();
+if(isset($_GET["username"]))
+{
+    $getSchedule = new UnavailabilityDataSet();
+    $view->unavailability = $getSchedule->getUnavailability($_GET["username"]);
+    $view->userDetails = $users->getUserDetails($_GET['username']);
+}
 
-$getTeams = new DevelopmentTeamDataSet();
+$view->users = $users->getAllUsers();
 $view->teams = $getTeams->getDevelopmentTeams();
 
-
-require_once('Views/createAcc.phtml');
+require_once('Views/userManagement.phtml');

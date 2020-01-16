@@ -129,4 +129,30 @@ class UserDataSet
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$password, $username]);
     }
+
+    public function getUserByTeam ($team){
+        $sqlquery = "SELECT username FROM users WHERE development_team = ?";
+        $statement = $this->_dbHandle->prepare($sqlquery);
+        $statement->execute([$team]);
+        $dataSet = [];
+        while($row = $statement->fetch()){
+            $dataSet[] = new User($row);
+        }
+        return $dataSet;
+
+    }
+
+    public function getUserDetails ($username){
+        $sqlquery = "SELECT username, development_team, type, experience FROM users WHERE username = ? and type = 'developer'";
+        $statement = $this->_dbHandle->prepare($sqlquery);
+        $statement->execute([$username]);
+        return new User($statement->fetch());
+    }
+
+    public function updateUserDetails($devTeam,$experience, $username)
+    {
+        $sqlQuery = "UPDATE users SET development_team = ?, experience = ? WHERE username = ?";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$devTeam,$experience, $username]);
+    }
 }
