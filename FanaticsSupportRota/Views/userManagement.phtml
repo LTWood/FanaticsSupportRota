@@ -9,12 +9,23 @@
                 <div class="form-group">
                     <form method="get" action="../userManagement.php">
                         <div class="form-group">
-                            <label for="listView">Select User</label>
-                            <select name="username" id = "listView" onchange="this.form.submit()">
-                                <?php foreach ($view->users as $user) :?>
-                                    <option value = "<?= $user->getUsername()?>" <?php if(isset($_GET["username"]) && $_GET["username"] == $user->getUsername()) echo "selected = '" . $user->getUsername() . "''"?>> <?= $user->getUsername() ?></option>
-                                <?php endforeach ; ?>
-                            </select>
+                            <label for="username">Search user</label>
+                            <input id="username" name="username">
+                            <?php
+                            $names = [];
+                            foreach ($view->users as $user)
+                            {
+                                array_push($names, $user->getUsername());
+                            }
+                            ?>
+                            <script>
+                                $(function() {
+                                    $("#username").autocomplete({
+                                        source: <?= json_encode($names) ?>
+                                    });
+                                });
+                            </script>
+                            <button onclick="this.form.submit()">View user</button>
                         </div>
                     </form>
                 </div>
