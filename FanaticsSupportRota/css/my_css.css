@@ -147,3 +147,7 @@ p.b {
 .bottom-padding{
     padding-top: 10px;
 }
+
+.users {
+    margin: 10px 0 10px 0;
+}
