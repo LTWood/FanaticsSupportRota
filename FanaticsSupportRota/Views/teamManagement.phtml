@@ -1,3 +1,4 @@
+<?php if(isset($_SESSION["user"]) && $_SESSION["type"] == "admin"){?>
 <?php require_once('template/header.phtml'); ?>
 
 <div class="container">
@@ -69,4 +70,4 @@
     <?php endif; ?>
 </div>
 
-<?php require_once('template/footer.phtml'); ?>
+<?php require_once('template/footer.phtml'); }?>

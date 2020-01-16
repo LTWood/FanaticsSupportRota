@@ -148,4 +148,11 @@ class UserDataSet
         $statement->execute([$username]);
         return new User($statement->fetch());
     }
+
+    public function updateUserDetails($devTeam,$experience, $username)
+    {
+        $sqlQuery = "UPDATE users SET development_team = ?, experience = ? WHERE username = ?";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$devTeam,$experience, $username]);
+    }
 }
