@@ -43,6 +43,7 @@ function handleDeveloperRotaDrop(event, ui) {
         ui.draggable.css("display", "none");
         // Sets rota slot to display devs name
         $(this)[0].children[0].children[0].innerText = ui.draggable.find("#devCardName")[0].innerText;
+
         // Shows trash button
         $(this)[0].children[0].children[1].style.display = "inline";
         // Change background colour to show it has been manually modified
