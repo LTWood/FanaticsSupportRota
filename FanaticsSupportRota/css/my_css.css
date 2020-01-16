@@ -54,6 +54,7 @@ h4 {
 
 .card-text {
     text-align: center;
+    margin-bottom: 0;
 }
 
 .card-body{
@@ -127,6 +128,13 @@ h4 {
 
 .createTeam {
     margin-top: 20px;
+}
+
+#unavailabilityList
+{
+    width:380px;
+    height:275px;
+    overflow: auto;
 }
 
 #unavailabilityList

@@ -11,7 +11,7 @@
                     <label for="listView">Select User</label>
                     <select name="selectedUser" id = "listView">
                         <?php foreach ($view->users as $user) :?>
-                        <option value = "<?= $user->getUsername()?>"> <?= $user->getUsername() ?></option>
+                            <option value = "<?= $user->getUsername()?>"> <?= $user->getUsername() ?></option>
                         <?php endforeach ; ?>
                     </select>
                 </div>
@@ -75,7 +75,7 @@
                     <label for="listView">Select Developer Type</label>
                     <select name="selectedDev" id = "listView">
                         <option value ="Admin">Admin</option>
-                        <option value ="Developer">Developer</option>
+                        <option value ="Developer" selected>Developer</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -88,6 +88,36 @@
                 </div>
                 <button type="submit" class="btn btn-success" name="createUserSubmit">Submit</button>
             </form>
+
+            <form class="col" method="get" action="../userManagement.php">
+                <div class="form-group">
+                    <label for="listView">Select User</label>
+                    <select name="usernameDetails" id = "listView" onchange="this.form.submit()">
+                        <?php foreach ($view->users as $user) :?>
+                            <option value = "<?= $user->getUsername(); ?>" <?php if(isset($_GET["usernameDetails"]) && $_GET["usernameDetails"] == $user->getUsername()) echo "selected = '" . $user->getUsername() . "''"?>> <?= $user->getUsername() ?></option>
+                        <?php endforeach ; ?>
+                    </select>
+                </div>
+            </form>
+            <div class="col">
+                <?php if (isset($view->userDetails)) :?>
+                <div class="card">
+                    <h5 class="card-header"><?= $view->userDetails->getUsername(); ?></h5>
+                    <div class="card-body">
+                        <p class="card-text"><b>Dev team: </b><?= $view->userDetails->getDevTeam(); ?></p>
+                        <label for="listView">Select Developer Type</label>
+                        <form method="post">
+                            <select name="updatedDevExp" id = "listView">
+                                <option value ="Junior" <?php if($view->userDetails->getExperience() == "Junior") echo "selected"; ?>>Junior</option>
+                                <option value ="Experienced" <?php if($view->userDetails->getExperience() == "Experienced") echo "selected"; ?>>Experienced</option>
+                                <option value ="Senior" <?php if($view->userDetails->getExperience() == "Senior") echo "selected"; ?>>Senior</option>
+                            </select>
+                            <button type="submit" value="<?= $view->userDetails->getUsername(); ?>" name="updateUser">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php endif ;?>
         </div>
         <?php if(isset($view->message)) : ?>
             <div class="alert alert-dark" role="alert"><?= $view->message ?></div>

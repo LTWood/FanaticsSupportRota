@@ -141,4 +141,11 @@ class UserDataSet
         return $dataSet;
 
     }
+
+    public function getUserDetails ($username){
+        $sqlquery = "SELECT username, development_team, type, experience FROM users WHERE username = ? and type = 'developer'";
+        $statement = $this->_dbHandle->prepare($sqlquery);
+        $statement->execute([$username]);
+        return new User($statement->fetch());
+    }
 }

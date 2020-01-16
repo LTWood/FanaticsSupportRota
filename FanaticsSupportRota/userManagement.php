@@ -12,6 +12,8 @@ require_once ("Models/UnavailabilityDataSet.php");
  * Checks to see if the submit button has been pressed. If it has, and both team and username are set, it calls
  * createUser from the userDataSet.
  */
+$users = new UserDataSet();
+$getTeams = new DevelopmentTeamDataSet();
 
 if (isset($_POST['createUserSubmit']))
 {
@@ -53,6 +55,10 @@ if(isset($_GET["username"]))
     $view->unavailability = $getSchedule->getUnavailability($_GET["username"]);
 }
 
+if (isset($_GET['usernameDetails'])) {
+
+    $view->userDetails = $users->getUserDetails($_GET['usernameDetails']);
+}
 
 if(isset($_POST["delete"]))
 {
@@ -62,10 +68,10 @@ if(isset($_POST["delete"]))
     $view->unavailability = $getSchedule->getUnavailability($_GET["username"]);
 }
 
-$getUsers = new UserDataSet();
-$view->users = $getUsers->getAllUsers();
 
-$getTeams = new DevelopmentTeamDataSet();
+$view->users = $users->getAllUsers();
+
+
 $view->teams = $getTeams->getDevelopmentTeams();
 
 
