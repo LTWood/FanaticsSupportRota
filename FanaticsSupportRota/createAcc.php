@@ -60,11 +60,10 @@ if(isset($_POST["unavailabilitySubmit"]))
         }
 }
 
-if(isset($_POST["userSchedule"]))
+if(isset($_GET["username"]))
 {
-    $view->userSchedule=$_POST["userSchedule"];
     $getSchedule = new UnavailabilityDataSet();
-    $view->unavailability = $getSchedule->getUnavailability($_POST["userSchedule"]);
+    $view->unavailability = $getSchedule->getUnavailability($_GET["username"]);
 }
 
 
