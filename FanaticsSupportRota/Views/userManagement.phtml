@@ -25,12 +25,12 @@
                 </div>
                 <button type="submit" class="btn btn-success" name="unavailabilitySubmit">Submit</button>
             </form>
-            <form class="col" method="post" action="../userManagement.php">
+            <form class="col" method="get" action="../userManagement.php">
                 <div class="form-group">
                     <label for="listView">Select User</label>
-                    <select name="userSchedule" id = "listView" onchange="this.form.submit()">
+                    <select name="username" id = "listView" onchange="this.form.submit()">
                         <?php foreach ($view->users as $user) :?>
-                            <option value = "<?= $user->getUsername()?>" <?php if(isset($view->userSchedule) && $view->userSchedule == $user->getUsername()) echo "selected = '" . $user->getUsername() . "''"?>> <?= $user->getUsername() ?></option>
+                            <option value = "<?= $user->getUsername()?>" <?php if(isset($_GET["username"]) && $_GET["username"] == $user->getUsername()) echo "selected = '" . $user->getUsername() . "''"?>> <?= $user->getUsername() ?></option>
                         <?php endforeach ; ?>
                     </select>
                 </div>
@@ -46,7 +46,7 @@
                                 </h5>
                             </div>
                             <div>
-                                <form method="post" action="../userManagement.php">
+                                <form method="post" action="../userManagement.php?username=<?=$_GET["username"]?>">
                                     <button class="btn-primary" name="delete" value="<?=$UnavailabilityData->getId()?>">Delete</button>
                                 </form>
                             </div>
@@ -55,8 +55,8 @@
                 <?php endif; ?>
             </div>
         </div>
-        <div class="row createTeam">
-            <form class="col-xl-6" method="post" action="../userManagement.php">
+        <div class="row createUser">
+            <form class="col" method="post" action="../userManagement.php">
                 <h4>Create Account</h4>
                 <div class="form-group">
                     <label for="exampleInputUsername">Username</label>
