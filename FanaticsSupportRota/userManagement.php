@@ -7,6 +7,7 @@ $view->pageTitle = 'Create Account';
 require_once ('Models/UserDataSet.php');
 require_once ('Models/DevelopmentTeamDataSet.php');
 require_once ("Models/UnavailabilityDataSet.php");
+require_once ("Models/AuditLogDataSet.php");
 
 /*
  * Checks to see if the submit button has been pressed. If it has, and both team and username are set, it calls
@@ -21,6 +22,12 @@ if (isset($_POST['createUserSubmit']))
     {
         $login = new UserDataSet();
         $view->message = $login->createUser($_POST['username'], $_POST['selectedTeam'], $_POST['selectedDev'], $_POST['selectedExp']);
+
+
+        //Add a audit message for when a new user is created
+        $auditLogObject = new AuditLogDataSet();
+        $message = "".$_SESSION['user']." created account: ".$_POST['username']." who is assigned to team: ".$_POST['selectedTeam']."  at ".date("H:i:s")." On ".date("d/m/Y");
+        $auditLogObject->addAuditLog($message);
     }
 }
 if (isset($_POST["logout"])) //Checks to see if the user logs out.

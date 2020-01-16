@@ -2,7 +2,6 @@
 
 require_once  ('Models/Database.php');
 require_once ('Models/User.php');
-require_once ('Models/AuditLogDataSet.php');
 
 class UserDataSet
 {
@@ -74,11 +73,6 @@ class UserDataSet
             $statement = $this->_dbHandle->prepare($sqlQuery);
             $statement->execute([$username, password_hash($password, PASSWORD_DEFAULT), $team, $type, $experience]);
             return "User added; Password is: " .$password;
-
-            //Add a audit message for when a new user is created
-            $auditLogObject = new AuditLogDataSet();
-            $message = "".$_SESSION['user']." created account: ".$username." who is part of team ".$team." at ".date("H:i:s")." On ".date("d/m/Y");
-            $auditLogObject->addAuditLog($message);
         }
         else
             {
