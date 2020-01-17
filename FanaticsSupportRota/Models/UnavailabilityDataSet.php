@@ -27,6 +27,7 @@ class UnavailabilityDataSet
         $sqlQuery = 'INSERT INTO unavailability (username, date_start, date_end) VALUES (?,?,?)';
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$username, $date_start, $date_end]);
+
     }
 
     //removes developer from unavailability record
