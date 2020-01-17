@@ -13,7 +13,7 @@
             <?php foreach ($users as $user): ?>
             <!-- Check if the user is available for the 2 weeks, and also check if the user is not an admin -->
             <?php if (($view->unavailabilityObject->checkAvailability($user->getUsername(), $view->startDate, $view->endDate)) && (strtolower($user->getType()) != "admin")): ?>
-                <div class="dev draggableDevelopers" id="devCard<?= ++$userIndex ?>">
+                <div class="dev draggableDevelopers" id="devCard<?= ++$userIndex ?>" data-date="<?= date("d/m/Y", strtotime($view->startDate)) ?>">
                     <p class="card-text" id="devCardText<?= $userIndex ?>">
                         <span id="devCardName"><?= $user->getUsername() ?></span>
                         <!-- Button here -->

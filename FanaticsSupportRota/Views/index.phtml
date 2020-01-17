@@ -13,27 +13,36 @@
                             <input type="submit" class="btn btn-success" name="viewNoWeeks" value="View"/>
                         </p>
                     </form>
-                </div>
-                <h2 id="currentDate">Current date: <?= date("d/m/Y") ?></h2>
-                <h6 id="noWeeks">Currently showing support teams for the next <?= $view->noWeeks ?> weeks..</h6>
-                <?php foreach ($view->supportRota as $supportTeam) : ?>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h5 class="card-title card-header">
-                                <?= date('d/m/Y',strtotime($supportTeam->getDateStart())); ?> ---
-                                <?= date('d/m/Y',strtotime($supportTeam->getDateEnd())); ?>
-                            </h5>
-                            <div class="users text-center">
-                                <span class="btn btn-primary"><?=$supportTeam->getDeveloper1()?></span>
-                                <span class="btn btn-primary"><?=$supportTeam->getDeveloper2()?></span>
+              </div>
+                    <h2 id="currentDate">Current date: <?= date("d/m/Y") ?></h2>
+                    <h6 id="noWeeks">Currently showing support teams for the next <?= $view->noWeeks ?> weeks</h6>
+
+                    <?php foreach ($view->supportRota as $supportTeam) : ?>
+                        <div class="card my-3">
+                            <div class="card-body">
+                                <h5 class="card-title card-header">
+                                    <?= date('d/m/Y', strtotime($supportTeam->getDateStart())); ?> ---
+                                    <?= date('d/m/Y', strtotime($supportTeam->getDateEnd())); ?>
+                                </h5>
+                                <div class="users text-center">
+                                    <?php if ($supportTeam->getDeveloper1() == ""): ?>
+                                        <span class="btn btn-danger">** Developer Required **</span>
+                                    <?php else: ?>
+                                        <span class="btn btn-primary"><?= $supportTeam->getDeveloper1() ?></span>
+                                    <?php endif ?>
+                                    <?php if ($supportTeam->getDeveloper2() == ""): ?>
+                                        <span class="btn btn-danger">** Developer Required **</span>
+                                    <?php else: ?>
+                                        <span class="btn btn-primary"><?= $supportTeam->getDeveloper2() ?></span>
+                                    <?php endif ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</body>
+    </body>
 
 <?php require_once('template/footer.phtml'); ?>

@@ -37,13 +37,16 @@ if(isset($_POST["unavailabilitySubmit"]))
     }
     else
     {
-        $view->allUsers = $getUsers->getUserByTeam($_POST['selectedTeam']);
-        foreach ($view->allUsers as $users) {
-            $addUnavailability->addUnavailability($users->getUsername(), $_POST["startDate"], $_POST["endDate"]);
-            $view->message = "Unavailability updated for Team " . $_POST['selectedTeam']. " - " . $_POST["startDate"] . "---" . $_POST["endDate"];
+        $usersObject = new UserDataSet();
+        $unavailabilityObject = new UnavailabilityDataSet();
+        $users = $usersObject->getUserByTeam($_POST["selectedTeam"]);
+        $startDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST["startDate"])));
+        $endDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST["endDate"])));
+        foreach ($users as $user)
+        {
+            $unavailabilityObject->addUnavailability($user->getUsername(), $startDate, $endDate);
         }
-
-
+        $view->message = "Unavailability updated for " . $_POST["selectedTeam"] . " from " . $_POST["startDate"] . " to " . $_POST["endDate"];
     }
 }
 
