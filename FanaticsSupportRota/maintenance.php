@@ -22,10 +22,39 @@ if (isset($_POST['viewNoWeeks'])) {
     $view->noWeeks = 8;
 }
 
+//Checking if there is a latest support team
+$latestArray = $supportTeamObject->getSupportTeamsFromRange(date('Y-m-d', strtotime("monday -3 week")), date('Y-m-d', strtotime("sunday -1 week")));
+if(count($latestArray)!= 0){
+    $latest = $latestArray[0];
+}else{
+    $latest = null;
+}
+
 //Generates a new rota for x amount of weeks (starting the beginning of the current week)
 if (isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])) {
     $rotaObject = new GenerateRota();
-    $rotaObject->generateRota($_POST['noWeeksGen'], 3);
+    if ($latest == null) {
+        if(isset($_POST['genStartDate'])) {
+            $view->required = false;
+            $newDate = date("d-m-Y", strtotime(str_replace("/", "-", $_POST['genStartDate'])));
+            //calculate the monday of the entered dates week
+            $date = $newDate;
+            if (date("w", strtotime($date)) == 1) {
+                $date = date("d-m-Y", strtotime($date . " + 1 days"));
+                echo $date;
+            }
+            $monday = date('d-m-Y', strtotime("last monday", strtotime($date)));
+
+            $rotaObject->generateRota($monday, $_POST['noWeeksGen'], 3);
+        }else{
+            $view->required = true;
+        }
+    }
+    else{
+        $view->required = false;
+        $start_Date = date('Y-m-d', strtotime(date('Y-m-d', strtotime('+1 day', strtotime($latest->getDateEnd())))));
+        $rotaObject->generateRota($start_Date, $_POST['noWeeksGen'], 3);
+    }
 }
 //$view->developerTeamObject = new DevelopmentTeamDataSet();
 //$view->developerTeams = $view->developerTeamObject->getDevelopmentTeams();

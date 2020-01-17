@@ -41,4 +41,11 @@ class AuditLogDataSet
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
     }
+
+    //Clears the entire audit log!
+    public function clearAuditLog(){
+        $sqlQuery = 'DELETE FROM audit_log';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute();
+    }
 }

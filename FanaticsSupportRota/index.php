@@ -16,23 +16,7 @@ $unavailabilityObject = new UnavailabilityDataSet();
 
 //Removes old support and unavailability records (set to -2 to leave one support team)
 $unavailabilityObject->removeOldRecords(date('Y-m-d', strtotime("monday -1 week")));
-$supportTeamObject->removeOldSupportTeam(date('Y-m-d', strtotime("monday -1 week")));
-
-
-//Checking if there is a latest support team
-$latest = $supportTeamObject->getLatestSupportTeam();
-if($latest == null){
-    echo "No entries";
-}else{
-    var_dump($latest);
-}
-
-
-//Generates a new rota for x amount of weeks (starting the beginning of the current week)
-if (isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])) {
-    $rotaObject = new GenerateRota();
-    $rotaObject->generateRota($_POST['noWeeksGen'], 3);
-}
+$supportTeamObject->removeOldSupportTeam(date('Y-m-d', strtotime("monday -3 week")));
 
 if (isset($_POST['viewNoWeeks'])) {
     if ($_POST['noWeeksView'] % 2 != 0) {
@@ -45,7 +29,6 @@ if (isset($_POST['viewNoWeeks'])) {
     $view->supportRota = $supportTeamObject->getSupportTeams(16);
     $view->noWeeks = 16;
 }
-
 
 if (isset($_POST['signIn'])) {
     if (isset($_POST['username']) && isset($_POST['psw'])) {

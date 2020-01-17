@@ -49,10 +49,10 @@ class SupportTeamDataSet
     }
 
     //Grabs the latest support team
-    public function getLatestSupportTeam(){
-        $sqlQuery = 'SELECT * FROM support_team ORDER BY date_end DESC LIMIT 1';
+    public function getLastSupportTeam($date){
+        $sqlQuery = 'SELECT * FROM support_team WHERE date_end < ?';
         $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute();
+        $statement->execute([$date]);
         $latest = null;
         while($row = $statement->fetch()){
             $latest = new SupportTeam($row);

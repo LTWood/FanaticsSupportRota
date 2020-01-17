@@ -18,7 +18,7 @@ class GenerateRota
     }
 
     //Creates a rota for x number of weeks
-    public function generateRota($weeks, $consecutiveLimit)
+    public function generateRota($start_date, $weeks, $consecutiveLimit)
     {
         $supportTeamObject = new SupportTeamDataSet();
 
@@ -32,9 +32,10 @@ class GenerateRota
         //Creates all the dates for the support teams (two week intervals)
         $dates = [];
         for ($i = 0; $i < $weeks; $i += 2) {
-            array_push($dates, date('Y-m-d', strtotime("monday " . ($i - 1) . " week")));
-            array_push($dates, date('Y-m-d', strtotime("sunday " . ($i + 1) . " week")));
+            array_push($dates, date('Y-m-d', strtotime($start_date ." ". ($i + 1) . " monday")));
+            array_push($dates, date('Y-m-d', strtotime($start_date ." ". ($i + 2) . " sunday")));
         }
+//        var_dump($dates);
 
         //Get dev pairs
         $devPairs = $this->generateDevPairs($weeks, $dates, $consecutiveLimit);
