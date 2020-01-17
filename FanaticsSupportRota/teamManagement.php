@@ -7,10 +7,11 @@ $view->pageTitle = 'Create Account';
 require_once ('Models/UserDataSet.php');
 require_once ('Models/DevelopmentTeamDataSet.php');
 require_once ("Models/UnavailabilityDataSet.php");
-require_once("Models/AuditLogDataSet.php");
+require_once ("Models/AuditLogDataSet.php");
 
 $getUsers = new UserDataSet();
 $addUnavailability = new UnavailabilityDataSet();
+$auditLogObject = new AuditLogDataSet();
 
 if (isset($_POST["createTeamSubmit"]))
 {
@@ -25,8 +26,7 @@ if (isset($_POST["createTeamSubmit"]))
         $view->message = "Added team called " . $_POST["teamName"];
 
         //audit log message for when a new team is created
-        $supportTeamObject = new SupportTeamDataSet();
-        $message = "".$_SESSION['user']." added team called ".$_GET['teamName']." at ".date("H:i:s")." On ".date("d/m/Y");
+        $message = "".$_SESSION['user']." added team called ".$_POST['teamName']." at ".date("H:i:s")." On ".date("d/m/Y");
         $auditLogObject->addAuditLog($message);
     }
 }
@@ -49,6 +49,9 @@ if(isset($_POST["unavailabilitySubmit"]))
             $view->message = "Unavailability updated for Team " . $_POST['selectedTeam']. " - " . $_POST["startDate"] . "---" . $_POST["endDate"];
         }
 
+        //audit log message for when a team is marked as unavailable
+        $message = "".$_SESSION['user']." marked team ".$_POST['selectedTeam']." as unavailable between ".$_POST["startDate"]." --- ".$_POST["endDate"]." at ".date("H:i:s")." On ".date("d/m/Y");
+        $auditLogObject->addAuditLog($message);
 
     }
 }

@@ -15,6 +15,7 @@ require_once ('Models/AuditLogDataSet.php');
  */
 $users = new UserDataSet();
 $getTeams = new DevelopmentTeamDataSet();
+$auditLogObject = new AuditLogDataSet();
 
 if (isset($_POST['createUserSubmit']))
 {
@@ -24,8 +25,7 @@ if (isset($_POST['createUserSubmit']))
         $view->message = $login->createUser($_POST['username'], $_POST['selectedTeam'], $_POST['selectedDev'], $_POST['selectedExp']);
 
         //audit log when a new user is created
-        $supportTeamObject = new SupportTeamDataSet();
-        $message = "".$_SESSION['user']." created user ".$_GET['username']." who is part of team ".$_GET['selectedTeam']." at ".date("H:i:s")." On ".date("d/m/Y");
+        $message = "".$_SESSION['user']." created user ".$_POST['username']." who is part of team ".$_POST['selectedTeam']." at ".date("H:i:s")." On ".date("d/m/Y");
         $auditLogObject->addAuditLog($message);
     }
 }
@@ -54,7 +54,6 @@ if(isset($_POST["unavailabilitySubmit"]))
             $view->message = "Unavailability updated for " . $_GET["username"] . " - " . $_POST["startDate"] . "---" . $_POST["endDate"];
 
             //audit log for when user is unavailable
-            $supportTeamObject = new SupportTeamDataSet();
             $message = "".$_SESSION['user']." added unavailability for ".$_GET['username']." between ".$_POST["startDate"] . "---" . $_POST["endDate"]." at ".date("H:i:s")." On ".date("d/m/Y");
             $auditLogObject->addAuditLog($message);
         }
@@ -66,7 +65,6 @@ if(isset($_POST["updateUser"]))
     $users->updateUserDetails($_POST["updatedDevTeam"],$_POST["updatedDevExp"],$_POST["updateUser"]);
 
     //audit log - users details updated
-    $supportTeamObject = new SupportTeamDataSet();
     $message = "".$_SESSION['user']." updated  ".$_GET['username']." at ".date("H:i:s")." On ".date("d/m/Y");
     $auditLogObject->addAuditLog($message);
 }
@@ -74,12 +72,11 @@ if(isset($_POST["updateUser"]))
 if(isset($_POST["deleteUser"]))
 {
     $users->deleteUser($_POST["deleteUser"]);
-    $_GET["username"] = "";
 
     //audit log - user record is deleted
-    $supportTeamObject = new SupportTeamDataSet();
     $message = "".$_SESSION['user']." deleted ".$_GET['username']." records at ".date("H:i:s")." On ".date("d/m/Y");
     $auditLogObject->addAuditLog($message);
+    $_GET["username"] = "";
 }
 
 if(isset($_POST["delete"]))
