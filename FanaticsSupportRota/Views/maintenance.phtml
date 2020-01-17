@@ -25,8 +25,10 @@
                                 <div class="card-text">Generate rota for the next
                                     <input type="text" class="btn-outline-secondary mb-2" id="noWeeksInput" name="noWeeksGen" required/>
                                     weeks
+                                    <br>
                                     <label for="from">Choose a date to start from:</label>
                                     <input type="text" id="from" class="btn-outline-secondary w-25 mb-2" name="genStartDate" <?php if ($view->required): ?> required <?php endif ?>/>
+                                    <br>
                                     <input type="submit" class="btn btn-success col-4" name="generateRota" value="Generate"/>
                                 </div>
                             </form>
