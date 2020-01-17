@@ -34,7 +34,6 @@ if (isset($_POST["logout"])) //Checks to see if the user logs out.
     unset($_SESSION["user"]);
 }
 
-
 if(isset($_POST["unavailabilitySubmit"]))
 {
     if (($_POST["startDate"]) == "")

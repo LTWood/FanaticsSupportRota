@@ -43,16 +43,19 @@ if(isset($_POST["unavailabilitySubmit"]))
     }
     else
     {
-        $view->allUsers = $getUsers->getUserByTeam($_POST['selectedTeam']);
-        foreach ($view->allUsers as $users) {
-            $addUnavailability->addUnavailability($users->getUsername(), $_POST["startDate"], $_POST["endDate"]);
-            $view->message = "Unavailability updated for Team " . $_POST['selectedTeam']. " - " . $_POST["startDate"] . "---" . $_POST["endDate"];
+        $usersObject = new UserDataSet();
+        $unavailabilityObject = new UnavailabilityDataSet();
+        $users = $usersObject->getUserByTeam($_POST["selectedTeam"]);
+        $startDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST["startDate"])));
+        $endDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST["endDate"])));
+        foreach ($users as $user)
+        {
+            $unavailabilityObject->addUnavailability($user->getUsername(), $startDate, $endDate);
         }
 
         //audit log message for when a team is marked as unavailable
         $message = "".$_SESSION['user']." marked team ".$_POST['selectedTeam']." as unavailable between ".$_POST["startDate"]." --- ".$_POST["endDate"]." at ".date("H:i:s")." On ".date("d/m/Y");
         $auditLogObject->addAuditLog($message);
-
     }
 }
 

@@ -22,7 +22,8 @@ function init() {
         changeYear: true,
         showButtonPanel: true,
         showWeek: true,
-        firstDay: 1
+        firstDay: 1,
+        editable: true
     });
 
     $("#to").datepicker({
@@ -36,18 +37,24 @@ function init() {
 }
 
 function handleDeveloperRotaDrop(event, ui) {
-
-    // Don't allow devs to be dropped on top of another dev
     if ($(this)[0].innerText === "** Developer Required **") {
-        // Don't show dev in teams list
-        ui.draggable.css("display", "none");
-        // Sets rota slot to display devs name
-        $(this)[0].children[0].children[0].innerText = ui.draggable.find("#devCardName")[0].innerText;
+        if (ui.draggable.data("date") == $(this).closest(".card").find("#startDate")[0].innerText) {
+            // Don't show dev in teams list
+            ui.draggable.css("display", "none");
+            // Sets rota slot to display devs name
+            $(this)[0].children[0].children[0].innerText = ui.draggable.find("#devCardName")[0].innerText;
 
-        // Shows trash button
-        $(this)[0].children[0].children[1].style.display = "inline";
-        // Change background colour to show it has been manually modified
-        $(this)[0].style.backgroundColor = "CornflowerBlue";
+            // Shows trash button
+            $(this)[0].children[0].children[1].style.display = "inline";
+            // Change background colour to show it has been manually modified
+            $(this)[0].style.backgroundColor = "CornflowerBlue";
+        }
+        else {
+            alert("Wrong date!");
+        }
+    }
+    else {
+        alert("Slot already filled!");
     }
 }
 
