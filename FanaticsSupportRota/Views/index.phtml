@@ -1,19 +1,20 @@
 <?php require_once('template/header.phtml'); ?>
 
-<div class="container">
-    <header class="header">Support Rota</header>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="my-3 p-3 bg-white rounded box-shadow">
-                <div class="form-row">
-                    <form class="col-12 text-center" method="post" action="../index.php">
-                        <p>View the next
-                            <input type="text" class="btn-outline-success" id="noWeeksInput" name="noWeeksView" required/>
-                            weeks
-                            <input type="submit" class="btn btn-success" name="viewNoWeeks" value="View"/>
-                        </p>
-                    </form>
-              </div>
+    <div class="container">
+        <header class="header">Support Rota</header>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="my-3 p-3 bg-white rounded box-shadow">
+                    <div class="form-row">
+                        <form class="col-12 text-center" method="post" action="../index.php">
+                            <p>View the next
+                                <input type="text" class="btn-outline-success" id="noWeeksInput" name="noWeeksView"
+                                       required/>
+                                weeks
+                                <input type="submit" class="btn btn-success" name="viewNoWeeks" value="View"/>
+                            </p>
+                        </form>
+                    </div>
                     <h2 id="currentDate">Current date: <?= date("d/m/Y") ?></h2>
                     <h6 id="noWeeks">Currently showing support teams for the next <?= $view->noWeeks ?> weeks</h6>
 
@@ -27,11 +28,15 @@
                                 <div class="users text-center">
                                     <?php if ($supportTeam->getDeveloper1() == ""): ?>
                                         <span class="btn btn-danger">** Developer Required **</span>
+                                    <?php elseif (!$view->unavailabilityObject->checkAvailability($supportTeam->getDeveloper1(), $supportTeam->getDateStart(), $supportTeam->getDateEnd())): ?>
+                                        <span class="btn btn-danger"><?= $supportTeam->getDeveloper1() ?></span>
                                     <?php else: ?>
                                         <span class="btn btn-primary"><?= $supportTeam->getDeveloper1() ?></span>
                                     <?php endif ?>
                                     <?php if ($supportTeam->getDeveloper2() == ""): ?>
                                         <span class="btn btn-danger">** Developer Required **</span>
+                                    <?php elseif (!$view->unavailabilityObject->checkAvailability($supportTeam->getDeveloper2(), $supportTeam->getDateStart(), $supportTeam->getDateEnd())): ?>
+                                        <span class="btn btn-danger"><?= $supportTeam->getDeveloper2() ?></span>
                                     <?php else: ?>
                                         <span class="btn btn-primary"><?= $supportTeam->getDeveloper2() ?></span>
                                     <?php endif ?>

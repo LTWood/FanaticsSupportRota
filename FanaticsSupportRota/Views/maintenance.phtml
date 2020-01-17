@@ -25,8 +25,8 @@
                                 <div class="card-text">Generate rota for the next
                                     <input type="text" class="btn-outline-secondary mb-2" id="noWeeksInput" name="noWeeksGen" required/>
                                     weeks
-                                    <label for="datepicker">Choose a date to start from:</label>
-                                    <input type="text" id="datepicker" class="btn-outline-secondary w-25 mb-2" name="genStartDate" readonly="true" <?php if($view->required){ echo "required"; } ?> />
+                                    <label for="from">Choose a date to start from:</label>
+                                    <input type="text" id="from" class="btn-outline-secondary w-25 mb-2" name="genStartDate" <?php if ($view->required): ?> required <?php endif ?>/>
                                     <input type="submit" class="btn btn-success col-4" name="generateRota" value="Generate"/>
                                 </div>
                             </form>
@@ -71,7 +71,7 @@
                                                 onclick='removeDeveloperFromSupport(<?= $index ?>)'><i
                                                 class='fas fa-trash-alt'></i>
                                         </button>
-                                    <?php if (!$view->unavailabilityObject->checkAvailability($team->getDeveloper2(), $team->getDateStart(), $team->getDateEnd())): ?>
+                                    <?php if (!$view->unavailabilityObject->checkAvailability($team->getDeveloper1(), $team->getDateStart(), $team->getDateEnd())): ?>
                                         <script>
                                             document.getElementById("rotaSlot" + <?= $index ?>).style.backgroundColor = "red";
                                         </script>

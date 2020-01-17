@@ -22,7 +22,8 @@ function init() {
         changeYear: true,
         showButtonPanel: true,
         showWeek: true,
-        firstDay: 1
+        firstDay: 1,
+        editable: true
     });
 
     $("#to").datepicker({

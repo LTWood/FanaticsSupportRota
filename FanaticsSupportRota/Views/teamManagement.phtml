@@ -4,7 +4,7 @@
 <div class="container">
     <header class="header">Team Management</header>
     <div class="row createTeam">
-        <form class="col" method="post" action="../teamManagement.php">
+        <form class="col-xl-6" method="post" action="../teamManagement.php">
             <h4>Team Unavailability</h4>
             <div class="form-group">
                 <label for="listView">Select Team</label>
@@ -24,36 +24,6 @@
             </div>
             <button type="submit" class="btn btn-success" name="unavailabilitySubmit">Submit</button>
         </form>
-        <form class="col" method="post" action="../teamManagement.php">
-            <h4>Team Unavailability</h4>
-            <div class="form-group">
-                <label for="listView">Select Team</label>
-                <select name="teamSchedule" id = "listView" onchange="this.form.submit()">
-                    <?php foreach ($view->teams as $team) :?>
-                        <option value = "<?= $team->getTeamName()?>" <?php if(isset($view->teamSchedule) && $view->teamSchedule == $team->getTeamName()) echo "selected = '" . $team->getTeamName() . "'"?>> <?= $team->getTeamName() ?></option>
-                    <?php endforeach ; ?>
-                </select>
-            </div>
-        </form>
-        <div class = "col" id = "unavailabilityList">
-            <?php if(isset($view->teamUnavailability)) :?>
-                <?php foreach ($view->teamUnavailability as $UnavailabilityData) : ?>
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <?= date('d-m-Y',strtotime($UnavailabilityData->getDateStart())); ?> ---
-                                <?= date('d-m-Y',strtotime($UnavailabilityData->getDateEnd())); ?>
-                            </h5>
-                        </div>
-                        <div>
-                            <form method="post" action="../userManagement.php">
-                                <button class="btn-primary" name="delete" value="<?=$UnavailabilityData->getId()?>">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
     </div>
     <div class="row createTeam">
         <form class="col-xl-6" method="post" action="../userManagement.php">

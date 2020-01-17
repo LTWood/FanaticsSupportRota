@@ -13,6 +13,7 @@ require_once('Models/UnavailabilityDataSet.php');
 
 $supportTeamObject = new SupportTeamDataSet();
 $unavailabilityObject = new UnavailabilityDataSet();
+$view->unavailabilityObject = new UnavailabilityDataSet();
 
 //Removes old support and unavailability records (set to -2 to leave one support team)
 $unavailabilityObject->removeOldRecords(date('Y-m-d', strtotime("monday -1 week")));
