@@ -28,7 +28,6 @@ if (isset($_POST["logout"])) //Checks to see if the user logs out.
     unset($_SESSION["user"]);
 }
 
-
 if(isset($_POST["unavailabilitySubmit"]))
 {
     if (($_POST["startDate"]) == "")
@@ -40,13 +39,13 @@ if(isset($_POST["unavailabilitySubmit"]))
         $view->message = "Please enter End Date";
     }
     else
-        {
-            $addUnavailability = new UnavailabilityDataSet();
-            $startDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['startDate'])));
-            $endDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['endDate'])));
-            $addUnavailability->addUnavailability($_GET["username"], $startDate, $endDate);
-            $view->message = "Unavailability updated for " . $_GET["username"] . " - " . $_POST["startDate"] . "---" . $_POST["endDate"];
-        }
+    {
+        $addUnavailability = new UnavailabilityDataSet();
+        $startDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['startDate'])));
+        $endDate = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['endDate'])));
+        $addUnavailability->addUnavailability($_GET["username"], $startDate, $endDate);
+        $view->message = "Unavailability updated for " . $_GET["username"] . " from " . $_POST["startDate"] . " to " . $_POST["endDate"];
+    }
 }
 
 
