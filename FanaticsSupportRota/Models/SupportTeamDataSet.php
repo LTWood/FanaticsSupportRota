@@ -48,6 +48,19 @@ class SupportTeamDataSet
         return $dataSet; //return array of support teams
     }
 
+    //Grabs the latest support team
+    public function getLastSupportTeam($date){
+        $sqlQuery = 'SELECT * FROM support_team WHERE date_end < ?';
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute([$date]);
+        $latest = null;
+        while($row = $statement->fetch()){
+            $latest = new SupportTeam($row);
+        }
+        return $latest;
+    }
+
+    //Grabs the team with a specified start date
     public function getSpecificTeam($date_start)
     {
         $sqlQuery = 'SELECT * FROM support_team WHERE date_start = ? ';

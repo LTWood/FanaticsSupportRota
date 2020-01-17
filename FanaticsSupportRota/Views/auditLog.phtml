@@ -5,7 +5,13 @@
         <header class="header">Audit Log</header>
         <div class="row">
             <div class="col-xl-12">
-                <div class="my-3 p-3 bg-white rounded box-shadow">
+                <div class="my-3 p-3 bg-white rounded box-shadow text-center">
+                    <h3><?= $view->emptyMessage; ?></h3>
+                    <?php if($view->emptyMessage == ""){ ?>
+                        <form method="post" action="../auditLog.php">
+                            <input type="submit" class="btn btn-danger" name="clearLogBtn" value="Clear All" />
+                        </form>
+                    <?php } ?>
                     <?php if(isset($_SESSION['user']) && $_SESSION['type'] == "admin"): ?>
 
                         <?php foreach ($view->auditLog as $audit) : ?>

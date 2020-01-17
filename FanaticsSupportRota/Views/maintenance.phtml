@@ -12,19 +12,22 @@
                         <h5 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
                                     aria-expanded="false" aria-controls="collapseOne">
-                                <h3 class="mb-0">Generate new rota</h3>
+                                <h3 class="mb-0 btn btn-secondary">Generate new rota <span class="fas fa-caret-down"></span></h3>
                             </button>
                         </h5>
                     </div>
 
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
                          data-parent="#generateAccordion">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <form class="card" method="post" action="../maintenance.php">
+                                <p class="text-danger ml-3 mr-3">If you do not select a date then teams will be generated from the last support team!</p>
                                 <div class="card-text">Generate rota for the next
-                                    <input type="text" id="noWeeksInput" name="noWeeksGen" required/>
+                                    <input type="text" class="btn-outline-secondary mb-2" id="noWeeksInput" name="noWeeksGen" required/>
                                     weeks
-                                    <input type="submit" class="btn btn-success" name="generateRota" value="Generate"/>
+                                    <label for="datepicker">Choose a date to start from:</label>
+                                    <input type="text" id="datepicker" class="btn-outline-secondary w-25 mb-2" name="genStartDate" readonly="true" <?php if($view->required){ echo "required"; } ?> />
+                                    <input type="submit" class="btn btn-success col-4" name="generateRota" value="Generate"/>
                                 </div>
                             </form>
                         </div>

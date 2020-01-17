@@ -11,7 +11,7 @@ class AuditLog
         $this->id = $auditMessage['id'];
     }
 
-
+    //Accessor methods for fields
     public function getID()
     {
         return $this->id;
