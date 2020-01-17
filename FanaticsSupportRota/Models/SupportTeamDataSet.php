@@ -48,18 +48,6 @@ class SupportTeamDataSet
         return $dataSet; //return array of support teams
     }
 
-    //Grabs the latest support team
-    public function getLastSupportTeam($date){
-        $sqlQuery = 'SELECT * FROM support_team WHERE date_end < ?';
-        $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute([$date]);
-        $latest = null;
-        while($row = $statement->fetch()){
-            $latest = new SupportTeam($row);
-        }
-        return $latest;
-    }
-
     //Grabs the team with a specified start date
     public function getSpecificTeam($date_start)
     {
@@ -76,13 +64,6 @@ class SupportTeamDataSet
         $statement->execute([$date_start, $date_end, $developer_1, $developer_2]);
     }
 
-    //Removes specified support team
-    public function delSupportTeam($id){
-        $sqlQuery = 'DELETE FROM support_team WHERE id = ?';
-        $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute([$id]);
-    }
-
     //Removes all support teams that are in the passed date range
     public function removeSupportTeamDateRange($date_start, $date_end){
         $sqlQuery = 'DELETE FROM support_team WHERE date_start >= "'.$date_start.'" AND date_end <= "'.$date_end.'"';
@@ -95,40 +76,6 @@ class SupportTeamDataSet
         $sqlQuery = 'DELETE FROM support_team WHERE date_end < ?';
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute([$date_end]);
-    }
-
-    //Adds a developer to a specific team if there is a position available
-    public function addDevToSupportTeam($developer, $id){
-        $sqlQuery = 'SELECT developer_1, developer_2 FROM support_team WHERE id = ?';
-        $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute([$id]);
-        $row = $statement->fetch();
-        if(!empty($row['developer_1']) || !empty($row['developer_2'])){
-            if(empty($row['developer_1'])){
-                $sqlQuery = 'UPDATE support_team SET developer_1 = "?" WHERE id = ?';
-            }else{
-                $sqlQuery = 'UPDATE support_team SET developer_2 = "?" WHERE id = ?';
-            }
-            $statement = $this->_dbHandle->prepare($sqlQuery);
-            $statement->execute([$developer, $id]);
-        }
-    }
-
-    //Removes a specific developer from a specific support team
-    public function removeDevFromSupportTeam($developer, $id){
-        $sqlQuery = 'SELECT developer_1, developer_2 FROM support_team WHERE id = ?';
-        $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute([$id]);
-        $row = $statement->fetch();
-        if($row['developer_1'] == $developer) {
-            $sqlQuery = 'UPDATE support_team SET developer_1 = NULL WHERE id = ?';
-            $statement = $this->_dbHandle->prepare($sqlQuery);
-            $statement->execute([$id]);
-        }elseif($row['developer_2'] == $developer){
-            $sqlQuery = 'UPDATE support_team SET developer_2 = NULL WHERE id = ?';
-            $statement = $this->_dbHandle->prepare($sqlQuery);
-            $statement->execute([$id]);
-        }
     }
 
     /*

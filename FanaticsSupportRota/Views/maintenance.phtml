@@ -27,7 +27,12 @@
                                     weeks
                                     <br>
                                     <label for="from">Choose a date to start from:</label>
-                                    <input type="text" id="from" class="btn-outline-secondary w-25 mb-2" name="genStartDate" <?php if ($view->required): ?> required <?php endif ?>/>
+                                    <input type="text" id="generateFrom" class="btn-outline-secondary w-25 mb-2" name="genStartDate" <?php if ($view->required): ?> required <?php endif ?>/>
+                                    <br>
+                                    A developer can appear
+                                    <input type="number" id="consecutiveWeeks" name="consecutiveWeeks" value="2">
+                                    times consecutively
+                                    <br>
                                     <br>
                                     <input type="submit" class="btn btn-success col-4" name="generateRota" value="Generate"/>
                                 </div>
@@ -39,7 +44,7 @@
             <div class="card my-3">
                 <div class="card-text">
                     <label for="from">From</label>
-                    <input type="text" id="from" name="from" readonly="true">
+                    <input type="text" id="showFrom" name="from" readonly="true">
                     <br>
                     <label for="to">to</label>
                     <input type="text" id="to" name="to" readonly="true">

@@ -16,7 +16,17 @@ function init() {
         drop: handleDeveloperRotaDrop
     });
 
-    $("#from").datepicker({
+    $("#generateFrom").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        showWeek: true,
+        firstDay: 1,
+        editable: true
+    });
+
+    $("#showFrom").datepicker({
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,

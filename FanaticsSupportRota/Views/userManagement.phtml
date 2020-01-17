@@ -10,7 +10,8 @@
                     <form method="get" action="../userManagement.php">
                         <div class="form-group">
                             <label for="username">Search user</label>
-                            <input id="username" name="username">
+                            <input type="text" class="form-control" id="username" placeholder="Username"
+                                   name="username">
                             <?php
                             $names = [];
                             foreach ($view->users as $user) {
@@ -24,7 +25,7 @@
                                     });
                                 });
                             </script>
-                            <button onclick="this.form.submit()">View user</button>
+                            <button class="btn btn-success" onclick="this.form.submit()">View user</button>
                         </div>
                     </form>
                 </div>

@@ -34,7 +34,7 @@ if(count($latestArray) != 0){
 }
 
 //Generates a new rota for x amount of weeks (starting the beginning of the current week)
-if (isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])) {
+if (isset($_POST['generateRota']) && isset($_POST['noWeeksGen']) && isset($_POST['consecutiveWeeks'])) {
     $rotaObject = new GenerateRota();
     if ($latest == null) {
         if(isset($_POST['genStartDate'])) {
@@ -48,7 +48,7 @@ if (isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])) {
             }
             $monday = date('d-m-Y', strtotime("last monday", strtotime($date)));
 
-            $rotaObject->generateRota($monday, $_POST['noWeeksGen'], 3);
+            $rotaObject->generateRota($monday, $_POST['noWeeksGen'], $_POST['consecutiveWeeks']);
         }else{
 //            $view->required = true;
         }
@@ -56,7 +56,7 @@ if (isset($_POST['generateRota']) && isset($_POST['noWeeksGen'])) {
     else{
 //        $view->required = false;
         $start_Date = date('Y-m-d', strtotime(date('Y-m-d', strtotime('+1 day', strtotime($latest->getDateEnd())))));
-        $rotaObject->generateRota($start_Date, $_POST['noWeeksGen'], 3);
+        $rotaObject->generateRota($start_Date, $_POST['noWeeksGen'], $_POST['consecutiveWeeks']);
     }
 }
 //$view->developerTeamObject = new DevelopmentTeamDataSet();
