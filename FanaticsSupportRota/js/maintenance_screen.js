@@ -36,7 +36,7 @@ function init() {
         editable: true
     });
 
-    $("#to").datepicker({
+    $("#showTo").datepicker({
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
@@ -113,8 +113,8 @@ function loaddevs(dates) {
 }
 
 function updateSupportTeamList() {
-    var startDate = $("#from")[0].value;
-    var endDate = $("#to")[0].value;
+    var startDate = $("#showFrom")[0].value;
+    var endDate = $("#showTo")[0].value;
     $("#supportTeams").load("getSupportTeamsInDateRange.php", {start: startDate, end: endDate}, function() {
         init();
         console.log("Success");
