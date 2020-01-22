@@ -1,65 +1,61 @@
-# Hack Camp
+To run the software, you will need PHP and MySQL installed on a server.
 
-This is the central repository for our Hack Camp project.
+To set up the database create a new database and switch to it:
 
-If you're using IntelliJ, it has a built in SVN manager that integrates with GitHub quite well. You can also use Git on it's own, you will just need to push your local repository to the remote one (this one).
+    CREATE DATABASE dbname;
+    USE dbname;
+    
+Use the following to set up the appropriate tables:
 
-## Resources
-There are plenty of tutorials online so please learn how to use Git and GitHub properly so you don't fuck anything up (I'm looking at you Ifty...)
+    CREATE TABLE development_teams
+    (
+        name VARCHAR(255) NOT NULL PRIMARY KEY
+    );
+---
+    CREATE TABLE users
+    (
+        username VARCHAR(255) NOT NULL PRIMARY KEY,
+        password VARCHAR(255) NULL,
+        development_team VARCHAR(255) NULL,
+        type VARCHAR(30) DEFAULT 'Developer' NULL,
+        experience VARCHAR(30) DEFAULT 'Experienced' NULL,
+        CONSTRAINT users_ibfk_1 FOREIGN KEY (development_team) REFERENCES development_teams (name) ON DELETE CASCADE
+    );
+---
+    CREATE TABLE unavailability
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        date_start DATE NOT NULL,
+        date_end DATE NOT NULL,
+        CONSTRAINT unavailability_ibfk_1 FOREIGN KEY (username) REFERENCES users (username) ON DELETE CASCADE
+    );
+---
+    CREATE TABLE support_team
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        date_start DATE NOT NULL,
+        date_end DATE NOT NULL,
+        developer_1 VARCHAR(255) NULL,
+        developer_2 VARCHAR(255) NULL,
+        CONSTRAINT support_team_ibfk_1 FOREIGN KEY (developer_1) REFERENCES users (username) ON DELETE SET NULL,
+        CONSTRAINT support_team_ibfk_2 FOREIGN KEY (developer_2) REFERENCES users (username) ON DELETE SET NULL
+    );
+---
+    CREATE TABLE audit_log
+    (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        message TEXT NOT NULL
+    );
 
-https://learngitbranching.js.org/
+## **IMPORTANT**
 
-https://guides.github.com/introduction/git-handbook/
+The database will not have any users when first set up so you will not be able to do anything so we need to add an admin account.
+The following will set up an admin account with a name of your choice, and set the password to 'password' (which can be changed later on).
+Enter your username of choice in-between the quotes "`<enter username here>`"
 
-https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
-
-If you're using Ubuntu or any Linux OS based on Debian, Git may already be installed, if not, use:
-
-    $ sudo apt update
-    $ sudo apt install git
-
-If you are on Windows, you can download it from [here.](https://git-scm.com/download/win)
-
-
-## Basic Git Command Reference
-*clone* - copy repository from remote to local, will also set the remote to the original source (this one) so you can pull from it
-
-    $ git clone <git url>
-
-----
-*status* - Check the status of files, staging area, changes since last commit etc.
-
-    $ git status
-
-----
-*add* - Adds file/s to the staging area, so that they can be commited. 
-
-    $ git add file1.txt file2.txt
-    $ git add *.txt
-    $ git add .    # adds all files in current directory
-
-----
-*commit* - This is actually going to save the *snapshot*. You need to add a commit message. Be as detailed as you can.
-
-    $ git commit    # Will open up your default text editor so you can write a commit message
-    $ git commit -m "This is a commit message"    # Add the -m argument to add the commit message in the command, so you don't have to open a text editor.
-
-----
-*pull* - Use pull if the remote (this one) has changed and you want those changes on your local repository
-
-    $ git pull <remote url> <branch>
-
-----
-*push* - Use if you have added and committed changes in your local repository that you want to push on to the remote repository (this one)
-
-    $ git push <remote url> <branch>
-
-----
-*checkout* - Switch to different branches
-
-    $ git checkout <branch name>
-    $ git checkout -b <branch name>    # The -b flag will create a new branch and then switch to it
-
-----
-## Will be updated
-
+    INSERT INTO users (username, password, type) VALUES ("<enter username here>", "$2y$10$4dJuOZUEYEtGvi0UgsgI6O3pjfl8KOxSKhJ84HjRy0nPqFU6zOa8W", "admin");
+    
+To set up the server, navigate into `FanaticsSupportRota/` folder and execute:
+    
+`$ php -S localhost:8000`
