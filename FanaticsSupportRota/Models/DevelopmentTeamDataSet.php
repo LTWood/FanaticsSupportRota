@@ -24,7 +24,7 @@ class DevelopmentTeamDataSet
     public function addDevTeam($teamName){
         $sqlQuery = 'INSERT INTO development_teams (name) VALUES (?)';
         $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute([$teamName]);
+        $statement->execute([trim($teamName)]);
     }
 
     //Deletes a development team

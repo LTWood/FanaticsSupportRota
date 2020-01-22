@@ -71,7 +71,7 @@ class UserDataSet
         {
             $sqlQuery = "INSERT INTO users (username, password, development_team, type, experience) VALUES (?,?,?,?,?)";
             $statement = $this->_dbHandle->prepare($sqlQuery);
-            $statement->execute([$username, password_hash($password, PASSWORD_DEFAULT), $team, $type, $experience]);
+            $statement->execute([trim($username), password_hash($password, PASSWORD_DEFAULT), trim($team), trim($type), trim($experience)]);
             return "User added; Password is: " .$password;
         }
         else
