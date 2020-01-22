@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A site for developers at Fanatics to view the support team rota.">
+    <meta name="author" content="">
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/css/my_css.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <!--    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">-->
+<!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+<!--    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+<!--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+    <title></title>
+</head>
+
+<body role="document">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <a class="navbar-brand" href="../../index.php"><img src="images/FanaticsLogo.png" width="100px" height="50px"></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../../index.php">Home</a>
+                </li>
+                <?php if (isset($_SESSION["user"]) && $_SESSION["type"] == "admin") : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../maintenance.php">Maintenance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../userManagement.php">User Management</a>
+                </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="../../teamManagement.php">Team Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../auditLog.php">Audit Log</i></a>
+                </li>
+                <?php endif; ?>
+                <?php if (isset($_SESSION["user"])) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../user.php">User Rota</i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../changePassword.php">Settings</i></a>
+                </li>
+
+                <?php endif; ?>
+            </ul>
+        </div>
+        <?php if(isset($_SESSION["user"])): ?>
+            <span id="loggedIn"><b>Logged In: </b><?= $_SESSION['user']?></span>
+        <form method="post" action = "index.php">
+            <button class="btn btn-warning" type="submit" name="logout" >Log Out</button>
+        </form>
+        <?php else: ?>
+        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#exampleModal">Login</button>
+        <?php endif; ?>
+    </nav>
+
+
+<!--?php //if (isset($_SESSION['user'])) { ?>-->
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-white">-->
+<!--        <a class="navbar-brand" href="../../index.php"><img src="images/FanaticsLogo.png" width="100px" height="50px"></a>-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav mr-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../../index.php">Home</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../../maintenance.php">Maintenance</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../../createAcc.php">Create Account</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../../user.php">User Rota</i></a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../../changePassword.php">Settings</i></a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <span> Logged In: ?php //echo $_SESSION['user']?></span>-->
+<!--        <form method="post" action = "index.php">-->
+<!--            <button class="btn btn-warning" type="submit" name="logout" >Log Out</button>-->
+<!--        </form>-->
+<!--    </nav>-->
+<!--?php //}-->
+<!--//else { ?>-->
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-white">-->
+<!--        <a class="navbar-brand" href="../../index.php"><img src="images/FanaticsLogo.png" width="100px" height="50px"></a>-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav mr-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../../index.php">Home</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../../maintenance.php">Maintenance</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="../../createAcc.php">Create Account</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#exampleModal">Login</button>-->
+<!--    </nav>-->
+<!--?php //}?>-->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="images/FanaticsLogo.png" width="100px" height="50px">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action ="" method="post">
+                <div class="modal-body">
+
+                    <div class="form-label-group textBox">
+                        <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+                    </div>
+
+                    <div class="form-label-group textBox">
+                        <input type="password" name="psw" class="form-control" placeholder="Password" required>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="signIn" class="btn btn-primary signInBtn">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
