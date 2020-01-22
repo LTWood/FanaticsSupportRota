@@ -1,3 +1,10 @@
+To be able to run this repository, please download and install PHP Storm along with the latest version of PHP.
+Open the repository using PHPStorm and create a Built-In Webserver (via phpStorm) and select the PHP interpreter.
+Finally select the root of the document and press the run button. This should host the program on your localhost.
+You can access the website through the default port 80 unless you have specified another.
+
+
+
 # Hack Camp
 
 This is the central repository for our Hack Camp project.
